@@ -71,7 +71,7 @@ export default function WeddingGift() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: index * 0.2 }}
                         viewport={{ once: true }}
-                        className={`relative w-full aspect-[1.586/1] min-h-[220px] sm:min-h-[240px] md:min-h-[260px] rounded-2xl shadow-2xl overflow-hidden ${account.gradient} text-white p-5 md:p-8 group transition-transform hover:scale-[1.02]`}
+                        className={`relative w-full aspect-[1.586/1] min-h-[200px] sm:min-h-[220px] md:min-h-[260px] rounded-xl sm:rounded-2xl shadow-xl md:shadow-2xl overflow-hidden ${account.gradient} text-white p-4 sm:p-6 md:p-8 group transition-transform hover:scale-[1.02]`}
                     >
                         {/* Specific Card Style Overlays */}
                         {account.renderStyle}
@@ -88,7 +88,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Chip */}
-                            <div className="flex flex-col gap-4 -mt-2">
+                            <div className="flex flex-col gap-2 sm:gap-4 mt-0 sm:-mt-2">
                                 <div className="w-11 h-8 bg-gradient-to-tr from-[#d4af37] to-[#fcf6ba] rounded-md relative overflow-hidden shadow-sm border border-[#b38728]/50">
                                     <div className="absolute top-1/2 left-0 w-full h-[1px] bg-black/20"></div>
                                     <div className="absolute left-1/2 top-0 w-[1px] h-full bg-black/20"></div>
@@ -97,7 +97,7 @@ export default function WeddingGift() {
 
                                 {/* Number */}
                                 <div className="flex items-center gap-3">
-                                    <div className="font-mono text-xl md:text-2xl tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] text-[#FFFFF0] py-1">
+                                    <div className="font-mono text-lg sm:text-xl md:text-2xl tracking-wider sm:tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] text-[#FFFFF0] py-0.5 sm:py-1">
                                         {account.number}
                                     </div>
                                     <button
@@ -116,14 +116,14 @@ export default function WeddingGift() {
 
                             {/* Footer: Name & Mastercard Logo */}
                             <div className="flex justify-between items-end mt-auto pb-1 md:pb-0">
-                                <div className="uppercase tracking-widest font-medium text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
+                                <div className="uppercase tracking-widest font-medium text-xs sm:text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
                                     {account.name}
                                 </div>
                                 {/* Mastercard Logo (Bottom Right) */}
                                 <img
                                     src={account.mastercardImg}
                                     alt="Mastercard"
-                                    className="h-8 md:h-10 w-auto object-contain"
+                                    className="h-6 sm:h-8 md:h-10 w-auto object-contain"
                                 />
                             </div>
                         </div>
