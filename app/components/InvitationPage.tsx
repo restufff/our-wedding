@@ -6,6 +6,7 @@ import GreetingOverlay from "@/app/components/GreetingOverlay";
 import VideoSection from "@/app/components/VideoSection";
 import PostVideoOptions from "@/app/components/PostVideoOptions";
 import CalendarCountdown from "@/app/components/CalendarCountdown";
+import WeddingGift from "@/app/components/WeddingGift";
 
 interface InvitationPageProps {
     guestName?: string;
@@ -193,6 +194,9 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <div className="pb-12">
                             <CalendarCountdown />
                         </div>
+
+                        {/* Wedding Gift Section */}
+                        <WeddingGift />
                     </div>
 
                     {guestName && (
