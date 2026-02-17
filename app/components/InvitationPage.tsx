@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import GreetingOverlay from "@/app/components/GreetingOverlay";
 import VideoSection from "@/app/components/VideoSection";
 import PostVideoOptions from "@/app/components/PostVideoOptions";
+import CalendarCountdown from "@/app/components/CalendarCountdown";
 
 interface InvitationPageProps {
     guestName?: string;
@@ -89,7 +90,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     />
                 </div>
 
-                <div className="max-w-4xl mx-auto space-y-16 text-center relative z-10 pt-50 pb-12">
+                <div className="max-w-4xl mx-auto space-y-16 text-center relative z-10 pt-32 md:pt-48 pb-12">
                     <div className="space-y-4">
                         <h2 className="text-sm uppercase tracking-[0.2em] font-bold">The Happy Couple</h2>
                         <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
@@ -135,6 +136,65 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         </div>
                     </div>
 
+                    {/* Wedding Event Section */}
+                    <div className="mt-24 space-y-12">
+                        <div className="space-y-4">
+                            <h2 className="text-sm uppercase tracking-[0.2em] font-bold">The Wedding Event</h2>
+                            <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8 text-center max-w-3xl mx-auto">
+                            {/* Akad Nikah */}
+                            <div className="p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
+                                <h3 className="font-whispering text-4xl mb-6 mt-4">Akad Nikah</h3>
+                                <div className="space-y-1">
+                                    <p className="font-serif font-bold text-lg">Sabtu, 28 Maret 2026</p>
+                                    <p className="text-sm opacity-80 uppercase tracking-widest">08:00 WIB - Selesai</p>
+                                </div>
+                                <div className="mt-8 text-sm opacity-90 space-y-1">
+                                    <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
+                                    <p className="opacity-80">Bengkulu, Seluma</p>
+                                </div>
+                            </div>
+
+                            {/* Resepsi */}
+                            <div className="p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
+                                <h3 className="font-whispering text-4xl mb-6 mt-4">Resepsi</h3>
+                                <div className="space-y-1">
+                                    <p className="font-serif font-bold text-lg">Minggu, 29 Maret 2026</p>
+                                    <p className="text-sm opacity-80 uppercase tracking-widest">09:00 WIB - Selesai</p>
+                                </div>
+                                <div className="mt-8 text-sm opacity-90 space-y-1">
+                                    <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
+                                    <p className="opacity-80">Bengkulu, Seluma</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Map Button */}
+                        <div className="flex justify-center pt-4 mb-24">
+                            <a
+                                href="https://maps.google.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative px-10 py-4 bg-[#064E56] text-[#EBE2DC] rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
+                            >
+                                <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                <span className="relative z-10 text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-3">
+                                    View Location
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+                                </span>
+                            </a>
+                        </div>
+
+                        {/* Save The Date Countdown */}
+                        <div className="pb-12">
+                            <CalendarCountdown />
+                        </div>
+                    </div>
+
                     {guestName && (
                         <div className="py-8">
                             <div className="inline-block border border-[#064E56]/30 px-6 py-2 rounded-full">
@@ -144,8 +204,13 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         </div>
                     )}
 
-                    <div className="pb-32 text-[#064E56]/40 text-xs uppercase tracking-widest">
-                        Scroll up to play video again
+                    <div className="pb-24 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2">
+                        <p className="uppercase opacity-70">Scroll up to play video again</p>
+                        <div className="w-8 h-[1px] bg-[#064E56]/30 my-4"></div>
+                        <p className="font-serif italic opacity-80">
+                            Crafted with <span className="text-red-800/60">♥</span> by <span className="font-bold">Tania & Restu</span>
+                        </p>
+                        <p className="text-[10px] opacity-50 uppercase tracking-[0.2em]">Next.js • TypeScript • Tailwind</p>
                     </div>
                 </div>
             </section>
