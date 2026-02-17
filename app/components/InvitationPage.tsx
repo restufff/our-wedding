@@ -63,33 +63,33 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
             {/* 4. Content */}
             <section
                 ref={contentRef}
-                className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#064E56] bg-[#FAF9F6] overflow-hidden flex flex-col justify-between"
+                className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#064E56] bg-[#EBE2DC] overflow-hidden flex flex-col justify-between"
             >
                 {/* Top Flower Frame */}
                 <div className="absolute top-0 left-0 w-full z-0 pointer-events-none">
                     <motion.img
-                        src="/image/flower-atas.png"
+                        src="/image/rose-up.png"
                         alt="Top Frame Decoration"
-                        className="w-full object-contain origin-top"
+                        className="w-full object-contain origin-top -mt-3 md:-mt-16 scale-110"
                         initial={{ scale: 1.02 }}
                         animate={{ scale: 1 }}
-                        transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                     />
                 </div>
 
                 {/* Bottom Flower Frame */}
                 <div className="absolute bottom-0 left-0 w-full z-0 pointer-events-none">
                     <motion.img
-                        src="/image/flower-bawah.png"
+                        src="/image/rose-bottom.png"
                         alt="Bottom Frame Decoration"
                         className="w-full object-contain origin-bottom"
                         initial={{ scale: 1.02 }}
                         animate={{ scale: 1 }}
-                        transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                     />
                 </div>
 
-                <div className="max-w-4xl mx-auto space-y-16 text-center relative z-10 py-12">
+                <div className="max-w-4xl mx-auto space-y-16 text-center relative z-10 pt-50 pb-12">
                     <div className="space-y-4">
                         <h2 className="text-sm uppercase tracking-[0.2em] font-bold">The Happy Couple</h2>
                         <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>

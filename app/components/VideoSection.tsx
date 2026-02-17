@@ -44,6 +44,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
         setPlayer(event.target);
         if (play) {
             event.target.mute(); // Ensure muted on ready
+            event.target.setPlaybackQuality('hd720'); // Force 720p
             event.target.playVideo();
         }
     };
@@ -93,7 +94,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
         <div className="fixed top-0 left-0 w-full h-[100dvh] z-0 bg-black group overflow-hidden" onClick={togglePlay}>
             <div className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                 <YouTube
-                    videoId="VXDbNLN7TIQ"
+                    videoId="IOMUQfgAVkw"
                     opts={opts}
                     onReady={onReady}
                     onEnd={onEnded}
