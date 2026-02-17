@@ -71,7 +71,7 @@ export default function WeddingGift() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: index * 0.2 }}
                         viewport={{ once: true }}
-                        className={`relative w-full aspect-[1.586/1] rounded-2xl shadow-2xl overflow-hidden ${account.gradient} text-white p-6 group transition-transform hover:scale-[1.02]`}
+                        className={`relative w-full aspect-[1.586/1] rounded-2xl shadow-2xl overflow-hidden ${account.gradient} text-white p-5 md:p-8 group transition-transform hover:scale-[1.02]`}
                     >
                         {/* Specific Card Style Overlays */}
                         {account.renderStyle}
@@ -88,7 +88,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Chip */}
-                            <div className="flex flex-col gap-6 -mt-2">
+                            <div className="flex flex-col gap-4 -mt-2">
                                 <div className="w-11 h-8 bg-gradient-to-tr from-[#d4af37] to-[#fcf6ba] rounded-md relative overflow-hidden shadow-sm border border-[#b38728]/50">
                                     <div className="absolute top-1/2 left-0 w-full h-[1px] bg-black/20"></div>
                                     <div className="absolute left-1/2 top-0 w-[1px] h-full bg-black/20"></div>
@@ -115,7 +115,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Footer: Name & Mastercard Logo */}
-                            <div className="flex justify-between items-end mt-auto mb-4 md:mb-6">
+                            <div className="flex justify-between items-end mt-auto mb-2 md:mb-4">
                                 <div className="uppercase tracking-widest font-medium text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
                                     {account.name}
                                 </div>
