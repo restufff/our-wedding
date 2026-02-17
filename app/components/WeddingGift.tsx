@@ -71,7 +71,7 @@ export default function WeddingGift() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: index * 0.2 }}
                         viewport={{ once: true }}
-                        className={`relative w-full aspect-[1.586/1] rounded-2xl shadow-2xl overflow-hidden ${account.gradient} text-white p-5 md:p-8 group transition-transform hover:scale-[1.02]`}
+                        className={`relative w-full aspect-[1.586/1] min-h-[220px] sm:min-h-[240px] md:min-h-[260px] rounded-2xl shadow-2xl overflow-hidden ${account.gradient} text-white p-5 md:p-8 group transition-transform hover:scale-[1.02]`}
                     >
                         {/* Specific Card Style Overlays */}
                         {account.renderStyle}
@@ -115,7 +115,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Footer: Name & Mastercard Logo */}
-                            <div className="flex justify-between items-end mt-auto mb-2 md:mb-4">
+                            <div className="flex justify-between items-end mt-auto pb-1 md:pb-0">
                                 <div className="uppercase tracking-widest font-medium text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
                                     {account.name}
                                 </div>
