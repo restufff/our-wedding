@@ -1,5 +1,5 @@
-import InvitationPage from "@/app/components/InvitationPage";
+import { notFound } from "next/navigation";
 
 export default function Page() {
-  return <InvitationPage />;
+  notFound();
 }

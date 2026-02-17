@@ -22,7 +22,7 @@ export default function PostVideoOptions({ onReplay, onContinue }: PostVideoOpti
                     className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors group"
                 >
                     <RotateCcw className="w-6 h-6 group-hover:-rotate-90 transition-transform" />
-                    <span className="text-xs uppercase tracking-widest">Replay Video</span>
+                    <span className="text-xs uppercase tracking-widest">Ulangi Video</span>
                 </button>
             </div>
 
@@ -31,7 +31,7 @@ export default function PostVideoOptions({ onReplay, onContinue }: PostVideoOpti
                     onClick={onContinue}
                     className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors animate-pulse"
                 >
-                    <span className="text-xs uppercase tracking-widest">Scroll Down to Continue</span>
+                    <span className="text-xs uppercase tracking-widest">Gulir ke bawah untuk lanjut</span>
                     <ChevronDown className="w-6 h-6" />
                 </button>
             </div> */}

@@ -77,7 +77,7 @@ export default function CalendarCountdown() {
     };
 
     return (
-        <div className="w-full max-w-[20rem] md:max-w-sm mx-auto px-4 md:px-0">
+        <div className="w-full max-w-[24rem] md:max-w-md mx-auto px-4 md:px-0">
             {/* Calendar Card */}
             <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-[2rem] p-6 md:p-8 shadow-2xl relative overflow-hidden">
                 {/* Decorative Blur */}
@@ -86,7 +86,7 @@ export default function CalendarCountdown() {
 
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8 relative z-10">
-                    <h3 className="font-whispering text-3xl md:text-4xl text-[#064E56] mb-1">March</h3>
+                    <h3 className="font-whispering text-3xl md:text-4xl text-[#064E56] mb-1">Maret</h3>
                     <div className="flex items-center justify-center gap-3">
                         <div className="h-[1px] w-6 md:w-8 bg-[#064E56]/30"></div>
                         <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] opacity-60 font-bold">2026</p>
@@ -96,7 +96,7 @@ export default function CalendarCountdown() {
 
                 {/* Days Header */}
                 <div className="grid grid-cols-7 text-center mb-2 md:mb-4">
-                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+                    {['M', 'S', 'S', 'R', 'K', 'J', 'S'].map((day, index) => (
                         <div key={`${day}-${index}`} className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-40 text-[#064E56]">
                             {day}
                         </div>
@@ -117,25 +117,25 @@ export default function CalendarCountdown() {
                         <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.days}
                         </span>
-                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Days</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Hari</span>
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.hours}
                         </span>
-                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Hours</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Jam</span>
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.minutes}
                         </span>
-                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Mins</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Menit</span>
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.seconds}
                         </span>
-                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Secs</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Detik</span>
                     </div>
                 </div>
 
@@ -143,7 +143,7 @@ export default function CalendarCountdown() {
                 <div className="mt-8 text-center">
                     <button
                         onClick={() => {
-                            const eventTitle = "The Wedding of Restu & Tanya";
+                            const eventTitle = "Pernikahan Restu & Tanya";
                             // For Google Calendar Location, use the map link as requested
                             const eventLocation = "https://maps.app.goo.gl/qgYMYWfNiK8ZjiLC9?g_st=ac";
                             // Use actual newlines for the description string
@@ -191,7 +191,7 @@ END:VCALENDAR`;
                         className="px-6 py-3 bg-[#064E56] text-[#EBE2DC] rounded-full text-xs uppercase tracking-widest font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /><path d="M16 18h.01" /></svg>
-                        Save the date
+                        Simpan Tanggal
                     </button>
                 </div>
             </div>

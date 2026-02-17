@@ -56,10 +56,10 @@ export default function WeddingGift() {
     return (
         <div className="w-full max-w-4xl mx-auto px-4 mt-16 md:mt-24 mb-16">
             <div className="text-center space-y-4 mb-12">
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">Wedding Gift</h2>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">Amplop Digital</h2>
                 <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                 <p className="text-sm md:text-base font-serif opacity-80 text-[#064E56] max-w-lg mx-auto">
-                    Your blessing is a very meaningful gift to us. However, if giving is an expression of your love, you may give a cashless gift.
+                    Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami menerima kado secara cashless.
                 </p>
             </div>
 

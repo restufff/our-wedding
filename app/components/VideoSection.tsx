@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import YouTube from "react-youtube";
+
+// --- CUSTOMIZE BUTTON COLORS HERE ---
+const BUTTON_STYLE_ON = "bg-[#ffbfdd]/80 hover:bg-[#ffbfdd] border-[#EBE2DC]/30";
+const BUTTON_STYLE_OFF = "bg-black/30 hover:bg-black/50 border-white/10";
+// ------------------------------------
 
 interface VideoSectionProps {
     play: boolean;
@@ -11,28 +15,61 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ play, onEnded }: VideoSectionProps) {
-    const [player, setPlayer] = useState<any>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const [showFeedback, setShowFeedback] = useState<"play" | "pause" | null>(null);
     const [isMuted, setIsMuted] = useState(true); // Default to true for autoplay
 
-    // Play video when 'play' prop is true
+    // Play/Pause logic based on 'play' prop
     useEffect(() => {
-        if (play && player) {
-            player.mute(); // Mute first to ensure autoplay works on mobile
-            player.playVideo();
-            setIsMuted(true);
-            setShowFeedback(null);
+        if (videoRef.current) {
+            if (play) {
+                videoRef.current.muted = true; // Auto-mute for autoplay policy
+                const playPromise = videoRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            setIsMuted(true);
+                        })
+                        .catch((error) => {
+                            console.error("Autoplay prevented:", error);
+                        });
+                }
+                setShowFeedback(null);
+            } else {
+                videoRef.current.pause();
+            }
         }
-    }, [play, player]);
+    }, [play]);
 
-    // Cleanup: Stop video when component unmounts or play becomes false (optional)
-    useEffect(() => {
-        if (!play && player) {
-            player.pauseVideo();
+    // Handle video end
+    const handleVideoEnded = () => {
+        onEnded();
+    };
+
+    // Toggle play/pause on click
+    const togglePlay = () => {
+        if (videoRef.current) {
+            if (videoRef.current.paused) {
+                videoRef.current.play();
+                setShowFeedback("play");
+            } else {
+                videoRef.current.pause();
+                setShowFeedback("pause");
+            }
         }
-    }, [play, player]);
+    };
 
-    // Hide feedback after animation
+    // Toggle Mute
+    const toggleMute = (e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevent toggling play/pause of video
+        if (videoRef.current) {
+            const newMutedState = !videoRef.current.muted;
+            videoRef.current.muted = newMutedState;
+            setIsMuted(newMutedState);
+        }
+    };
+
+    // Feedback animation timeout
     useEffect(() => {
         if (showFeedback) {
             const timer = setTimeout(() => setShowFeedback(null), 500);
@@ -40,86 +77,89 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
         }
     }, [showFeedback]);
 
-    const onReady = (event: any) => {
-        setPlayer(event.target);
-        if (play) {
-            event.target.mute(); // Ensure muted on ready
-            event.target.setPlaybackQuality('hd720'); // Force 720p
-            event.target.playVideo();
-        }
-    };
-
-    const onError = (event: any) => {
-        console.error("YouTube Player Error Code:", event.data);
-        onEnded();
-    };
-
-    const togglePlay = () => {
-        if (player) {
-            const state = player.getPlayerState();
-            if (state === 1) { // Playing
-                player.pauseVideo();
-                setShowFeedback("pause");
-            } else {
-                player.playVideo();
-                setShowFeedback("play");
-            }
-        }
-    };
-
-    const handleUnmute = (e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevent toggling play/pause
-        if (player) {
-            player.unMute();
-            setIsMuted(false);
-        }
-    };
-
-    const opts = {
-        height: '100%',
-        width: '100%',
-        playerVars: {
-            autoplay: 0,
-            controls: 0,
-            rel: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            playsinline: 1,
-            origin: typeof window !== 'undefined' ? window.location.origin : undefined,
-            host: 'https://www.youtube.com',
-        },
-    };
-
     return (
         <div className="fixed top-0 left-0 w-full h-[100dvh] z-0 bg-black group overflow-hidden" onClick={togglePlay}>
-            <div className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <YouTube
-                    videoId="IOMUQfgAVkw"
-                    opts={opts}
-                    onReady={onReady}
-                    onEnd={onEnded}
-                    onError={onError}
-                    className="w-full h-full"
-                    iframeClassName="w-full h-full object-cover"
+            {/* Desktop Blur Background (Hidden on Mobile) */}
+            <div className="hidden md:block absolute inset-0 z-0 opacity-40 mix-blend-overlay pointer-events-none">
+                <video
+                    className="w-full h-full object-cover blur-2xl scale-110"
+                    src="/video/wedding_compressed.mp4"
+                    muted
+                    loop
+                    playsInline
+                    ref={(el) => {
+                        // Sync background video with main video if possible, or just loop
+                        if (el && videoRef.current && !el.src) el.src = videoRef.current.src;
+                    }}
                 />
             </div>
 
-            {/* Unmute Overlay */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none flex items-center justify-center z-10">
+                <video
+                    ref={videoRef}
+                    // Mobile: object-cover (immersive), Desktop: object-contain (show full content)
+                    className="w-full h-full md:w-auto md:h-[90vh] md:aspect-[9/16] object-cover md:object-contain shadow-2xl md:rounded-2xl"
+                    src="/video/wedding_compressed.mp4"
+                    playsInline
+                    onEnded={handleVideoEnded}
+                // poster="/image/poster.jpg"
+                />
+            </div>
+
+            {/* Audio Toggle Button (Heart Shape) */}
             <AnimatePresence>
-                {isMuted && play && (
+                {play && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0 }}
+                        className="absolute bottom-8 right-8 z-30 flex items-center gap-3 flex-row-reverse"
                     >
                         <button
-                            onClick={handleUnmute}
-                            className="bg-black/50 backdrop-blur-md px-6 py-3 rounded-full text-white font-medium text-sm tracking-widest uppercase border border-white/20 hover:bg-black/70 transition-all flex items-center gap-2"
+                            onClick={toggleMute}
+                            className={`relative group flex items-center justify-center w-14 h-14 rounded-full backdrop-blur-md border shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-500 ${isMuted ? BUTTON_STYLE_OFF : BUTTON_STYLE_ON}`}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
-                            Tap to Unmute
+                            {/* Pulsing Effect when Muted */}
+                            {isMuted && (
+                                <span className="absolute inset-0 rounded-full bg-white/30 animate-ping opacity-75 duration-1000"></span>
+                            )}
+
+                            {/* Heart Icon (Favicon) */}
+                            <img
+                                src="/favicon.ico"
+                                alt="Audio Toggle"
+                                className={`w-8 h-8 object-contain transition-all duration-300 ${isMuted ? 'opacity-50 grayscale' : 'scale-110 drop-shadow-md'}`}
+                            />
+
+                            {/* Slash for muted state */}
+                            {isMuted && (
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                                >
+                                    <div className="w-8 h-[1.5px] bg-white rotate-45 rounded-full shadow-sm"></div>
+                                </motion.div>
+                            )}
                         </button>
+
+                        {/* Text Hint */}
+                        <AnimatePresence>
+                            {isMuted && (
+                                <motion.div
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 10 }}
+                                    className="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10"
+                                >
+                                    <p className="text-white text-[10px] uppercase tracking-widest font-medium whitespace-nowrap">
+                                        Hidupkan Musik
+                                    </p>
+                                    {/* Arrow pointing to button */}
+                                    <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[6px] border-l-black/40 border-b-[6px] border-b-transparent"></div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
                 )}
             </AnimatePresence>

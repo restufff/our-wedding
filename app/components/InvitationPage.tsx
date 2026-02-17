@@ -7,6 +7,7 @@ import VideoSection from "@/app/components/VideoSection";
 import PostVideoOptions from "@/app/components/PostVideoOptions";
 import CalendarCountdown from "@/app/components/CalendarCountdown";
 import WeddingGift from "@/app/components/WeddingGift";
+import CommentSection from "@/app/components/CommentSection";
 
 interface InvitationPageProps {
     guestName?: string;
@@ -93,85 +94,220 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                 <div className="max-w-4xl mx-auto space-y-12 md:space-y-16 text-center relative z-10 pt-28 md:pt-48 pb-12">
                     <div className="space-y-4">
-                        <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">The Happy Couple</h2>
+                        <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">Pasangan Mempelai</h2>
                         <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                     </div>
 
                     <p className="text-base md:text-lg leading-relaxed font-serif max-w-2xl mx-auto opacity-90 px-4">
-                        "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
                         <br />
                         <span className="text-xs md:text-sm mt-2 block opacity-75">— Ar-Rum: 21</span>
                     </p>
 
-                    <div className="grid md:grid-cols-2 gap-10 md:gap-8 items-center mt-8 md:mt-12">
-                        {/* Groom */}
-                        <div className="flex flex-col items-center space-y-4">
-                            <div className="w-40 h-56 md:w-48 md:h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
-                                {/* Placeholder for Photo */}
-                                <span className="text-xs uppercase tracking-widest opacity-50">Groom Photo</span>
-                            </div>
-                            <div className="space-y-1">
-                                <h3 className="font-whispering text-4xl md:text-5xl">Restu Fauzi</h3>
-                                <p className="text-xs md:text-sm uppercase tracking-widest font-bold opacity-80">The Groom</p>
-                            </div>
-                            <div className="text-xs md:text-sm opacity-80 px-4">
-                                <p>The Son of</p>
-                                <p className="font-bold">Bapak Misar Suhendar & Ibu Meta Ostarica</p>
-                            </div>
+                    <div className="relative mt-8 md:mt-16">
+                        {/* Decorative Ampersand Background */}
+                        <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[200px] leading-none opacity-5 font-whispering select-none pointer-events-none z-0">
+                            &
                         </div>
 
-                        {/* Bride */}
-                        <div className="flex flex-col items-center space-y-4">
-                            <div className="w-40 h-56 md:w-48 md:h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
-                                {/* Placeholder for Photo */}
-                                <span className="text-xs uppercase tracking-widest opacity-50">Bride Photo</span>
-                            </div>
-                            <div className="space-y-1">
-                                <h3 className="font-whispering text-4xl md:text-5xl">Tanya Apriska Putri</h3>
-                                <p className="text-xs md:text-sm uppercase tracking-widest font-bold opacity-80">The Bride</p>
-                            </div>
-                            <div className="text-xs md:text-sm opacity-80 px-4">
-                                <p>The Daughter of</p>
-                                <p className="font-bold">Bapak Aprizal & Ibu Eka Susanti</p>
-                            </div>
+                        <div className="grid md:grid-cols-2 gap-44 md:gap-20 items-stretch max-w-4xl mx-auto px-4 relative z-10">
+                            {/* Groom */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                className="flex flex-col items-center space-y-6 group"
+                            >
+                                <div className="relative w-56 h-72 md:w-64 md:h-80">
+                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform -rotate-3 transition-transform group-hover:-rotate-6"></div>
+                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform rotate-2 transition-transform group-hover:rotate-4"></div>
+
+                                    <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
+                                        <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
+                                            {/* Photo Placeholder / Image */}
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply"></div>
+                                            <span className="text-xs uppercase tracking-widest opacity-40 font-bold z-10">Restu Fauzi</span>
+                                            {/* If you have images, replace the above span with: <img src="..." className="w-full h-full object-cover" /> */}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="text-center space-y-2 relative">
+                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Restu Fauzi</h3>
+                                    <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">Mempelai Pria</p>
+                                    </div>
+                                    <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
+                                        <p className="italic font-serif">Putra Tercinta dari</p>
+                                        <p className="font-bold mt-1">Bapak Misar Suhendar</p>
+                                        <p className="font-bold">& Ibu Meta Ostarica</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Bride */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="flex flex-col items-center space-y-6 group"
+                            >
+                                <div className="relative w-56 h-72 md:w-64 md:h-80">
+                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform rotate-3 transition-transform group-hover:rotate-6"></div>
+                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform -rotate-2 transition-transform group-hover:-rotate-4"></div>
+
+                                    <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
+                                        <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
+                                            {/* Photo Placeholder / Image */}
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply"></div>
+                                            <span className="text-xs uppercase tracking-widest opacity-40 font-bold z-10">Tanya Apriska</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="text-center space-y-2 relative">
+                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Tanya Apriska Putri</h3>
+                                    <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">Mempelai Wanita</p>
+                                    </div>
+                                    <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
+                                        <p className="italic font-serif">Putri Tercinta dari</p>
+                                        <p className="font-bold mt-1">Bapak Aprizal</p>
+                                        <p className="font-bold">& Ibu Eka Susanti</p>
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
 
                     {/* Wedding Event Section */}
                     <div className="mt-16 md:mt-24 space-y-8 md:space-y-12">
                         <div className="space-y-4">
-                            <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">The Wedding Event</h2>
+                            <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">Acara Pernikahan</h2>
                             <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                         </div>
-
+                        {/* ubah di sini <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-center max-w-4xl mx-auto px-4"></div>
                         <div className="grid md:grid-cols-2 gap-6 md:gap-8 text-center max-w-3xl mx-auto px-4">
                             {/* Akad Nikah */}
-                            <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
-                                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
-                                <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Akad Nikah</h3>
-                                <div className="space-y-1">
-                                    <p className="font-serif font-bold text-base md:text-lg">Sabtu, 28 Maret 2026</p>
-                                    <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">08:00 WIB - Selesai</p>
-                                </div>
-                                <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
-                                    <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
-                                    <p className="opacity-80">Bengkulu, Seluma</p>
+                        {/* <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
+                            <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Akad Nikah</h3>
+                            <div className="space-y-1">
+                                <p className="font-serif font-bold text-base md:text-lg">Sabtu, 28 Maret 2026</p>
+                                <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">08:00 WIB - Selesai</p>
+                            </div>
+                            <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
+                                <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
+                                <p className="opacity-80">Bengkulu, Seluma</p>
+                            </div>
+                        </div> */}
+
+                        {/* Resepsi */}
+                        {/* <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
+                            <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Resepsi</h3>
+                            <div className="space-y-1">
+                                <p className="font-serif font-bold text-base md:text-lg">Minggu, 29 Maret 2026</p>
+                                <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">09:00 WIB - Selesai</p>
+                            </div>
+                            <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
+                                <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
+                                <p className="opacity-80">Bengkulu, Seluma</p>
+                            </div>
+                        </div>
+                    </div> */}
+                        {/* coment ini */}
+                        <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-center max-w-4xl mx-auto px-4">
+                            {/* Akad Nikah */}
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-3 scale-105 transition-transform group-hover:rotate-6"></div>
+                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-2 scale-105 transition-transform group-hover:-rotate-4"></div>
+
+                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#064E56]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#064E56]/5 to-transparent"></div>
+
+                                    <div className="relative h-full border border-[#064E56]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
+
+
+                                        <div className="mt-8 space-y-2">
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">Akad Nikah</h3>
+                                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
+                                        </div>
+
+                                        <div className="py-8 space-y-4">
+                                            <div className="font-serif">
+                                                <p className="text-lg font-bold text-[#064E56]">Sabtu</p>
+                                                <div className="flex items-center justify-center gap-4 my-2">
+                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <p className="text-3xl font-bold font-serif">28</p>
+                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                </div>
+                                                <p className="text-lg text-[#064E56]">Maret 2026</p>
+                                            </div>
+                                            <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
+                                                <p className="text-xs uppercase tracking-widest font-bold">08:00 WIB - Selesai</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">Bertempat di</p>
+                                            <p className="font-serif italic text-lg leading-snug">Kediaman Mempelai Wanita</p>
+                                            <p className="text-xs opacity-70">Bengkulu, Seluma</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Resepsi */}
-                            <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
-                                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
-                                <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Resepsi</h3>
-                                <div className="space-y-1">
-                                    <p className="font-serif font-bold text-base md:text-lg">Minggu, 29 Maret 2026</p>
-                                    <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">09:00 WIB - Selesai</p>
-                                </div>
-                                <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
-                                    <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
-                                    <p className="opacity-80">Bengkulu, Seluma</p>
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-3 scale-105 transition-transform group-hover:-rotate-6"></div>
+                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-2 scale-105 transition-transform group-hover:rotate-4"></div>
+
+                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#064E56]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#064E56]/5 to-transparent"></div>
+
+                                    <div className="relative h-full border border-[#064E56]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
+
+
+                                        <div className="mt-8 space-y-2">
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">Resepsi</h3>
+                                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
+                                        </div>
+
+                                        <div className="py-8 space-y-4">
+                                            <div className="font-serif">
+                                                <p className="text-lg font-bold text-[#064E56]">Minggu</p>
+                                                <div className="flex items-center justify-center gap-4 my-2">
+                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <p className="text-3xl font-bold font-serif">29</p>
+                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                </div>
+                                                <p className="text-lg text-[#064E56]">Maret 2026</p>
+                                            </div>
+                                            <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
+                                                <p className="text-xs uppercase tracking-widest font-bold">09:00 WIB - Selesai</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">Bertempat di</p>
+                                            <p className="font-serif italic text-lg leading-snug">Kediaman Mempelai Wanita</p>
+                                            <p className="text-xs opacity-70">Bengkulu, Seluma</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Location Image */}
+                        <div className="w-full max-w-3xl mx-auto px-4 mt-8 md:mt-12 mb-6 flex justify-center">
+                            <img
+                                src="/image/lokasi-weddings.jpg"
+                                alt="Peta Lokasi"
+                                className="w-full h-auto rounded-2xl shadow-xl border-4 border-white/50"
+                            />
                         </div>
 
                         {/* Map Button */}
@@ -184,11 +320,13 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             >
                                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                 <span className="relative z-10 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2 md:gap-3">
-                                    View Location
+                                    Lihat Lokasi
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform w-3 h-3 md:w-4 md:h-4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                                 </span>
                             </a>
                         </div>
+
+                        {/* View Location Button moved here if needed in context */}
 
                         {/* Save The Date Countdown */}
                         <div className="pb-12">
@@ -197,19 +335,21 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                         {/* Wedding Gift Section */}
                         <WeddingGift />
+
+                        {/* Comment Section (RSVP) */}
+                        <CommentSection guestName={guestName} />
                     </div>
 
                     {guestName && (
                         <div className="py-8">
                             <div className="inline-block border border-[#064E56]/30 px-6 py-2 rounded-full">
-                                <span className="text-sm tracking-widest uppercase opacity-70">Specially for </span>
+                                <span className="text-sm tracking-widest uppercase opacity-70">Spesial untuk </span>
                                 <span className="font-serif italic text-lg ml-1">{guestName}</span>
                             </div>
                         </div>
                     )}
 
                     <div className="pb-24 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2">
-                        <p className="uppercase opacity-70">Scroll up to play video again</p>
                         <div className="w-8 h-[1px] bg-[#064E56]/30 my-4"></div>
                         <p className="font-serif italic opacity-80">
                             Crafted with <span className="text-red-800/60">♥</span> by <span className="font-bold">Tania & Restu</span>
@@ -218,6 +358,6 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     </div>
                 </div>
             </section>
-        </main>
+        </main >
     );
 }

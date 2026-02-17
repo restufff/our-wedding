@@ -33,7 +33,7 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
 
             <div className="relative z-10 text-center space-y-6 p-6">
                 <div className="text-xs tracking-[0.2em] uppercase text-[#064E56] font-bold">
-                    The Wedding Celebration of
+                    Perayaan Pernikahan
                 </div>
 
                 <div className="flex flex-col items-center gap-2 py-4">
@@ -49,14 +49,14 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
                 </div>
 
                 <div className="text-base text-[#064E56] font-bold">
-                    Saturday, March 28, 2026
+                    Sabtu, 28 Maret 2026
                 </div>
 
                 <div className="mt-8 mb-4">
                     {guestName ? (
                         <>
                             <div className="text-[0.65rem] text-[#064E56] uppercase tracking-widest mb-2 font-bold">
-                                Special Invitation For
+                                Undangan Spesial Untuk
                             </div>
                             <div className="text-xl font-serif text-[#064E56] font-bold">
                                 {guestName}
@@ -71,7 +71,7 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
                     onClick={onOpen}
                     className="px-8 py-3 bg-[#064E56] text-white text-xs uppercase tracking-widest font-medium rounded-full hover:bg-[#5FBae0] transition-colors shadow-lg shadow-[#064E56]/20"
                 >
-                    Open Invitation
+                    Buka Undangan
                 </button>
             </div>
 
