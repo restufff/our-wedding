@@ -77,65 +77,65 @@ export default function CalendarCountdown() {
     };
 
     return (
-        <div className="w-full max-w-sm mx-auto">
+        <div className="w-full max-w-[20rem] md:max-w-sm mx-auto px-4 md:px-0">
             {/* Calendar Card */}
-            <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+            <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-[2rem] p-6 md:p-8 shadow-2xl relative overflow-hidden">
                 {/* Decorative Blur */}
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#064E56]/5 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#064E56]/5 rounded-full blur-3xl"></div>
 
                 {/* Header */}
-                <div className="text-center mb-8 relative z-10">
-                    <h3 className="font-whispering text-4xl text-[#064E56] mb-1">March</h3>
+                <div className="text-center mb-6 md:mb-8 relative z-10">
+                    <h3 className="font-whispering text-3xl md:text-4xl text-[#064E56] mb-1">March</h3>
                     <div className="flex items-center justify-center gap-3">
-                        <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
-                        <p className="text-xs uppercase tracking-[0.3em] opacity-60 font-bold">2026</p>
-                        <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                        <div className="h-[1px] w-6 md:w-8 bg-[#064E56]/30"></div>
+                        <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] opacity-60 font-bold">2026</p>
+                        <div className="h-[1px] w-6 md:w-8 bg-[#064E56]/30"></div>
                     </div>
                 </div>
 
                 {/* Days Header */}
-                <div className="grid grid-cols-7 text-center mb-4">
+                <div className="grid grid-cols-7 text-center mb-2 md:mb-4">
                     {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
-                        <div key={`${day}-${index}`} className="text-[10px] font-bold uppercase tracking-widest opacity-40 text-[#064E56]">
+                        <div key={`${day}-${index}`} className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-40 text-[#064E56]">
                             {day}
                         </div>
                     ))}
                 </div>
 
                 {/* Calendar Grid */}
-                <div className="grid grid-cols-7 text-center mb-8">
+                <div className="grid grid-cols-7 text-center mb-6 md:mb-8 gap-y-1">
                     {renderCalendarDays()}
                 </div>
 
                 {/* Divider */}
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#064E56]/20 to-transparent mb-8"></div>
+                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#064E56]/20 to-transparent mb-6 md:mb-8"></div>
 
                 {/* Countdown Timer */}
-                <div className="grid grid-cols-4 gap-2 text-center text-[#064E56]">
+                <div className="grid grid-cols-4 gap-1 md:gap-2 text-center text-[#064E56]">
                     <div className="flex flex-col items-center">
-                        <span className="text-2xl font-serif font-bold tabular-nums leading-none">
+                        <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.days}
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest opacity-50 mt-1">Days</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Days</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <span className="text-2xl font-serif font-bold tabular-nums leading-none">
+                        <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.hours}
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest opacity-50 mt-1">Hours</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Hours</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <span className="text-2xl font-serif font-bold tabular-nums leading-none">
+                        <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.minutes}
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest opacity-50 mt-1">Mins</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Mins</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <span className="text-2xl font-serif font-bold tabular-nums leading-none">
+                        <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.seconds}
                         </span>
-                        <span className="text-[9px] uppercase tracking-widest opacity-50 mt-1">Secs</span>
+                        <span className="text-[8px] md:text-[9px] uppercase tracking-widest opacity-50 mt-1">Secs</span>
                     </div>
                 </div>
 
@@ -144,8 +144,16 @@ export default function CalendarCountdown() {
                     <button
                         onClick={() => {
                             const eventTitle = "The Wedding of Restu & Tanya";
-                            const eventLocation = "Kediaman Mempelai Wanita, Bengkulu, Seluma";
-                            const eventDescription = "Akad: Sabtu, 28 Maret 2026 (08:00 WIB)\\nResepsi: Minggu, 29 Maret 2026 (09:00 WIB)\\n\\nKami mengundang Anda untuk merayakan pernikahan kami.";
+                            // For Google Calendar Location, use the map link as requested
+                            const eventLocation = "https://maps.app.goo.gl/qgYMYWfNiK8ZjiLC9?g_st=ac";
+                            // Use actual newlines for the description string
+                            const eventDescription = `Akad: Sabtu, 28 Maret 2026 (08:00 WIB)
+Resepsi: Minggu, 29 Maret 2026 (09:00 WIB)
+
+Lokasi: Kediaman Mempelai Wanita, Bengkulu, Seluma
+
+Kami mengundang Anda untuk merayakan pernikahan kami.`;
+
                             const startDate = "20260328T080000"; // YYYYMMDDTHHMMSS
                             const endDate = "20260329T130000"; // Until end of resepsi
 
@@ -154,6 +162,8 @@ export default function CalendarCountdown() {
 
                             if (isIOS) {
                                 // .ics file for iOS/Apple Calendar
+                                // ICS format requires literal \n for newlines (escaped), so we replace real newlines with \\n
+                                const icsDescription = eventDescription.replace(/\n/g, '\\n');
                                 const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
@@ -161,7 +171,7 @@ SUMMARY:${eventTitle}
 DTSTART:${startDate}
 DTEND:${endDate}
 LOCATION:${eventLocation}
-DESCRIPTION:${eventDescription.replace(/\\n/g, '\\n')}
+DESCRIPTION:${icsDescription}
 END:VEVENT
 END:VCALENDAR`;
                                 const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
@@ -173,6 +183,7 @@ END:VCALENDAR`;
                                 document.body.removeChild(link);
                             } else {
                                 // Google Calendar Link for Android/Desktop
+                                // encodeURIComponent handles real newlines correctly (\n -> %0A)
                                 const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}&sf=true&output=xml`;
                                 window.open(googleUrl, '_blank');
                             }

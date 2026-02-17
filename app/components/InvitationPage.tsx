@@ -67,11 +67,11 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                 className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#064E56] bg-[#EBE2DC] overflow-hidden flex flex-col justify-between"
             >
                 {/* Top Flower Frame */}
-                <div className="absolute top-0 left-0 w-full z-0 pointer-events-none">
+                <div className="absolute top-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center">
                     <motion.img
                         src="/image/rose-up.png"
                         alt="Top Frame Decoration"
-                        className="w-full object-contain origin-top -mt-3 md:-mt-16 scale-110"
+                        className="w-full md:w-[80%] lg:w-[60%] object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
                         initial={{ scale: 1.02 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
@@ -79,41 +79,41 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                 </div>
 
                 {/* Bottom Flower Frame */}
-                <div className="absolute bottom-0 left-0 w-full z-0 pointer-events-none">
+                <div className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center">
                     <motion.img
                         src="/image/rose-bottom.png"
                         alt="Bottom Frame Decoration"
-                        className="w-full object-contain origin-bottom"
+                        className="w-full md:w-[80%] lg:w-[60%] object-contain origin-bottom"
                         initial={{ scale: 1.02 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                     />
                 </div>
 
-                <div className="max-w-4xl mx-auto space-y-16 text-center relative z-10 pt-32 md:pt-48 pb-12">
+                <div className="max-w-4xl mx-auto space-y-12 md:space-y-16 text-center relative z-10 pt-28 md:pt-48 pb-12">
                     <div className="space-y-4">
-                        <h2 className="text-sm uppercase tracking-[0.2em] font-bold">The Happy Couple</h2>
+                        <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">The Happy Couple</h2>
                         <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                     </div>
 
-                    <p className="text-lg leading-relaxed font-serif max-w-2xl mx-auto opacity-90">
+                    <p className="text-base md:text-lg leading-relaxed font-serif max-w-2xl mx-auto opacity-90 px-4">
                         "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."
                         <br />
-                        <span className="text-sm mt-2 block opacity-75">— Ar-Rum: 21</span>
+                        <span className="text-xs md:text-sm mt-2 block opacity-75">— Ar-Rum: 21</span>
                     </p>
 
-                    <div className="grid md:grid-cols-2 gap-12 md:gap-8 items-center mt-12">
+                    <div className="grid md:grid-cols-2 gap-10 md:gap-8 items-center mt-8 md:mt-12">
                         {/* Groom */}
                         <div className="flex flex-col items-center space-y-4">
-                            <div className="w-48 h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
+                            <div className="w-40 h-56 md:w-48 md:h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
                                 {/* Placeholder for Photo */}
                                 <span className="text-xs uppercase tracking-widest opacity-50">Groom Photo</span>
                             </div>
                             <div className="space-y-1">
-                                <h3 className="font-whispering text-5xl">Restu Fauzi</h3>
-                                <p className="text-sm uppercase tracking-widest font-bold opacity-80">The Groom</p>
+                                <h3 className="font-whispering text-4xl md:text-5xl">Restu Fauzi</h3>
+                                <p className="text-xs md:text-sm uppercase tracking-widest font-bold opacity-80">The Groom</p>
                             </div>
-                            <div className="text-sm opacity-80">
+                            <div className="text-xs md:text-sm opacity-80 px-4">
                                 <p>The Son of</p>
                                 <p className="font-bold">Bapak Misar Suhendar & Ibu Meta Ostarica</p>
                             </div>
@@ -121,15 +121,15 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                         {/* Bride */}
                         <div className="flex flex-col items-center space-y-4">
-                            <div className="w-48 h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
+                            <div className="w-40 h-56 md:w-48 md:h-64 bg-white/20 rounded-t-full rounded-b-lg border-2 border-[#064E56]/20 flex items-center justify-center">
                                 {/* Placeholder for Photo */}
                                 <span className="text-xs uppercase tracking-widest opacity-50">Bride Photo</span>
                             </div>
                             <div className="space-y-1">
-                                <h3 className="font-whispering text-5xl">Tanya Apriska Putri</h3>
-                                <p className="text-sm uppercase tracking-widest font-bold opacity-80">The Bride</p>
+                                <h3 className="font-whispering text-4xl md:text-5xl">Tanya Apriska Putri</h3>
+                                <p className="text-xs md:text-sm uppercase tracking-widest font-bold opacity-80">The Bride</p>
                             </div>
-                            <div className="text-sm opacity-80">
+                            <div className="text-xs md:text-sm opacity-80 px-4">
                                 <p>The Daughter of</p>
                                 <p className="font-bold">Bapak Aprizal & Ibu Eka Susanti</p>
                             </div>
@@ -137,36 +137,36 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     </div>
 
                     {/* Wedding Event Section */}
-                    <div className="mt-24 space-y-12">
+                    <div className="mt-16 md:mt-24 space-y-8 md:space-y-12">
                         <div className="space-y-4">
-                            <h2 className="text-sm uppercase tracking-[0.2em] font-bold">The Wedding Event</h2>
+                            <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">The Wedding Event</h2>
                             <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-8 text-center max-w-3xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-6 md:gap-8 text-center max-w-3xl mx-auto px-4">
                             {/* Akad Nikah */}
-                            <div className="p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                            <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
                                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
-                                <h3 className="font-whispering text-4xl mb-6 mt-4">Akad Nikah</h3>
+                                <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Akad Nikah</h3>
                                 <div className="space-y-1">
-                                    <p className="font-serif font-bold text-lg">Sabtu, 28 Maret 2026</p>
-                                    <p className="text-sm opacity-80 uppercase tracking-widest">08:00 WIB - Selesai</p>
+                                    <p className="font-serif font-bold text-base md:text-lg">Sabtu, 28 Maret 2026</p>
+                                    <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">08:00 WIB - Selesai</p>
                                 </div>
-                                <div className="mt-8 text-sm opacity-90 space-y-1">
+                                <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
                                     <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
                                     <p className="opacity-80">Bengkulu, Seluma</p>
                                 </div>
                             </div>
 
                             {/* Resepsi */}
-                            <div className="p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
+                            <div className="p-6 md:p-8 border border-[#064E56]/20 rounded-t-full rounded-b-xl bg-white/40 backdrop-blur-sm relative group hover:bg-white/60 transition-colors">
                                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#064E56]/40 rounded-full"></div>
-                                <h3 className="font-whispering text-4xl mb-6 mt-4">Resepsi</h3>
+                                <h3 className="font-whispering text-3xl md:text-4xl mb-4 md:mb-6 mt-2 md:mt-4">Resepsi</h3>
                                 <div className="space-y-1">
-                                    <p className="font-serif font-bold text-lg">Minggu, 29 Maret 2026</p>
-                                    <p className="text-sm opacity-80 uppercase tracking-widest">09:00 WIB - Selesai</p>
+                                    <p className="font-serif font-bold text-base md:text-lg">Minggu, 29 Maret 2026</p>
+                                    <p className="text-xs md:text-sm opacity-80 uppercase tracking-widest">09:00 WIB - Selesai</p>
                                 </div>
-                                <div className="mt-8 text-sm opacity-90 space-y-1">
+                                <div className="mt-6 md:mt-8 text-xs md:text-sm opacity-90 space-y-1">
                                     <p className="font-bold uppercase tracking-wider">Kediaman Mempelai Wanita</p>
                                     <p className="opacity-80">Bengkulu, Seluma</p>
                                 </div>
@@ -174,17 +174,17 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         </div>
 
                         {/* Map Button */}
-                        <div className="flex justify-center pt-4 mb-24">
+                        <div className="flex justify-center pt-4 mb-16 md:mb-24">
                             <a
-                                href="https://maps.google.com"
+                                href="https://maps.app.goo.gl/qgYMYWfNiK8ZjiLC9?g_st=ac"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative px-10 py-4 bg-[#064E56] text-[#EBE2DC] rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
+                                className="group relative px-8 py-3 md:px-10 md:py-4 bg-[#064E56] text-[#EBE2DC] rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
                             >
                                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                                <span className="relative z-10 text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-3">
+                                <span className="relative z-10 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2 md:gap-3">
                                     View Location
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform w-3 h-3 md:w-4 md:h-4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                                 </span>
                             </a>
                         </div>
