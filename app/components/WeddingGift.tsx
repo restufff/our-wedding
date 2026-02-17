@@ -77,7 +77,7 @@ export default function WeddingGift() {
                         {account.renderStyle}
 
                         {/* Content */}
-                        <div className="relative z-10 h-full flex flex-col justify-between font-sans">
+                        <div className="relative z-10 h-full flex flex-col justify-between font-sans p-3">
                             {/* Header: Bank Logo */}
                             <div className="flex justify-end">
                                 <img
@@ -115,7 +115,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Footer: Name & Mastercard Logo */}
-                            <div className="flex justify-between items-end mt-100px pb-1 md:pb-0">
+                            <div className="flex justify-between items-end mt-80px pb-1 md:pb-0">
                                 <div className="uppercase tracking-widest font-medium text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
                                     {account.name}
                                 </div>
