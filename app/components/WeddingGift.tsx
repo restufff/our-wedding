@@ -16,7 +16,7 @@ export default function WeddingGift() {
             gradient: "bg-gradient-to-br from-[#AA822A] via-[#E8C66C] to-[#976F1D]",
             logoSrc: "/image/bca-new.svg",
             // Increased size for BCA logo as requested
-            logoClass: "h-5 md:h-7 w-auto brightness-0 invert shadow-sm",
+            logoClass: "h-10 md:h-14 w-auto brightness-0 invert shadow-sm",
             // Use white Mastercard logo for BCA as well
             mastercardImg: "/image/mastercard-white.svg",
             renderStyle: (
