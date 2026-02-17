@@ -225,8 +225,8 @@ function MarqueeColumn({ comments, direction, duration }: { comments: Comment[],
                 <div key={`${comment.id}-${i}`} className="px-2">
                     <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30 shadow-none text-xs text-[#064E56]">
                         <div className="flex justify-between items-start mb-2 gap-2 border-b border-[#064E56]/10 pb-2">
-                            <span className="font-bold flex-1 truncate">{comment.name}</span>
-                            <span className={`text-[9px] uppercase px-1.5 py-0.5 rounded-full font-bold opacity-70 ${comment.status === 'Hadir' ? 'text-green-800 bg-green-100/50' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/50' : 'text-amber-800 bg-amber-100/50'}`}>
+                            <span className="font-bold flex-1 break-words leading-tight">{comment.name}</span>
+                            <span className={`shrink-0 text-[8px] md:text-[9px] uppercase px-2 py-1 rounded-full font-bold opacity-80 ${comment.status === 'Hadir' ? 'text-green-800 bg-green-100/60' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/60' : 'text-amber-800 bg-amber-100/60'}`}>
                                 {comment.status}
                             </span>
                         </div>
