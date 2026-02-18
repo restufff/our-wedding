@@ -132,11 +132,11 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                     <div className="relative mt-8 md:mt-20">
                         {/* Decorative Ampersand Background */}
-                        <div className="absolute top-[45%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[200px] leading-none opacity-5 font-whispering select-none pointer-events-none z-0">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block text-[60px] md:text-[200px] leading-none opacity-5 font-whispering select-none pointer-events-none z-0">
                             &
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-44 md:gap-20 items-stretch max-w-4xl mx-auto px-4 relative z-10">
+                        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-stretch max-w-4xl mx-auto px-4 relative z-10">
                             {/* Groom */}
                             <motion.div
                                 initial={{ opacity: 0, x: -50 }}
@@ -328,7 +328,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.8 }}
-                            className="w-full max-w-3xl mx-auto px-4 mt-8 md:mt-12 mb-6 flex justify-center"
+                            className="w-full max-w-3xl md:max-w-lg mx-auto px-4 mt-8 md:mt-12 mb-6 flex justify-center"
                         >
                             <img
                                 src="/image/lokasi-weddings.jpg"
@@ -415,7 +415,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                     <motion.img
                                         src="/image/angel_sit.png"
                                         alt="Angel Sitting"
-                                        className="w-16 md:w-20 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
+                                        className="w-14 md:w-16 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
                                         animate={{ rotate: [-2, 2, -2] }}
                                         transition={{
                                             duration: 4,
@@ -456,7 +456,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="pb-24 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2"
+                        className="pb-40 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2"
                     >
                         <div className="w-8 h-[1px] bg-[#064E56]/30 my-4"></div>
                         <p className="font-serif italic opacity-80">

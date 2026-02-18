@@ -80,19 +80,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
     return (
         <div className="fixed top-0 left-0 w-full h-[100dvh] z-0 bg-black group overflow-hidden" onClick={togglePlay}>
             {/* Desktop Blur Background (Hidden on Mobile) */}
-            <div className="hidden md:block absolute inset-0 z-0 opacity-40 mix-blend-overlay pointer-events-none">
-                <video
-                    className="w-full h-full object-cover blur-2xl scale-110"
-                    src="/video/wedding_compressed.mp4"
-                    muted
-                    loop
-                    playsInline
-                    ref={(el) => {
-                        // Sync background video with main video if possible, or just loop
-                        if (el && videoRef.current && !el.src) el.src = videoRef.current.src;
-                    }}
-                />
-            </div>
+            <div className="hidden md:block absolute inset-0 z-0 opacity-30 bg-gradient-to-br from-[#064E56] via-black to-[#064E56] pointer-events-none"></div>
 
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none flex items-center justify-center z-10">
                 <video

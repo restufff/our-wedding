@@ -54,7 +54,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
         setIsSubmitting(false);
 
         // Clear feedback after 3 seconds
-        setTimeout(() => setFeedback(null), 3000);
+        setTimeout(() => setFeedback(null), 5000);
     };
 
     return (
@@ -181,17 +181,53 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                             )}
                         </button>
 
-                        {/* Feedback Message */}
+                        {/* Feedback Message & Animation */}
                         <AnimatePresence>
                             {feedback && (
                                 <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto" }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className={`text-center text-xs font-bold p-2 rounded ${feedback.type === 'success' ? 'text-green-700 bg-green-100' : 'text-red-700 bg-red-100'
-                                        }`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 backdrop-blur-md rounded-2xl z-20"
                                 >
-                                    {feedback.text}
+                                    {feedback.type === 'success' ? (
+                                        <>
+                                            <motion.div
+                                                initial={{ scale: 0.5, opacity: 0, x: -50, y: 50 }}
+                                                animate={{
+                                                    scale: [0.5, 1.2, 1],
+                                                    opacity: [0, 1, 1, 0],
+                                                    x: [0, 100, 300],
+                                                    y: [0, -100, -300],
+                                                    rotate: [0, -10, -45]
+                                                }}
+                                                transition={{ duration: 2, ease: "easeInOut" }}
+                                                className="absolute"
+                                            >
+                                                <Send size={48} className="text-[#064E56]" fill="#064E56" />
+                                            </motion.div>
+                                            <motion.div
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 0.5 }}
+                                                className="text-center space-y-2"
+                                            >
+                                                <div className="w-12 h-12 bg-[#064E56]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                    <CheckCircle className="text-[#064E56]" size={24} />
+                                                </div>
+                                                <p className="font-whispering text-2xl text-[#064E56]">Terima Kasih!</p>
+                                                <p className="text-xs uppercase tracking-widest text-[#064E56]/80 font-bold">Ucapan berhasil dikirim</p>
+                                            </motion.div>
+                                        </>
+                                    ) : (
+                                        <div className="text-center space-y-2 px-6">
+                                            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                <XCircle className="text-red-600" size={24} />
+                                            </div>
+                                            <p className="text-xs uppercase tracking-widest text-red-600 font-bold">Gagal Mengirim</p>
+                                            <p className="text-[10px] opacity-70">{feedback.text}</p>
+                                        </div>
+                                    )}
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -263,10 +299,10 @@ function MarqueeColumn({ comments, direction, duration }: { comments: Comment[],
         >
             {displayComments.map((comment, i) => (
                 <div key={`${comment.id}-${i}`} className="px-2">
-                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30 shadow-none text-xs text-[#064E56]">
+                    <div className="bg-white/20 backdrop-blur-sm p-3 md:p-4 rounded-xl border border-white/30 shadow-none text-xs text-[#064E56]">
                         <div className="flex justify-between items-start mb-2 gap-2 border-b border-[#064E56]/10 pb-2">
-                            <span className="font-bold flex-1 break-words leading-tight">{comment.name}</span>
-                            <span className={`shrink-0 text-[8px] md:text-[9px] uppercase px-2 py-1 rounded-full font-bold opacity-80 ${comment.status === 'Hadir' ? 'text-green-800 bg-green-100/60' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/60' : 'text-amber-800 bg-amber-100/60'}`}>
+                            <span className="font-bold flex-1 break-words leading-tight text-[10px] md:text-xs">{comment.name}</span>
+                            <span className={`shrink-0 text-[6px] md:text-[9px] uppercase px-1.5 md:px-3 py-1 rounded-full font-bold opacity-80 whitespace-nowrap min-w-[40px] md:min-w-[70px] tracking-tight md:tracking-normal text-center ${comment.status === 'Hadir' ? 'text-green-800 bg-green-100/60' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/60' : 'text-amber-800 bg-amber-100/60'}`}>
                                 {comment.status}
                             </span>
                         </div>

@@ -3,8 +3,38 @@ import { notFound } from "next/navigation";
 import fs from "fs/promises";
 import path from "path";
 
+import { Metadata } from "next";
+
 interface PageProps {
     params: Promise<{ guestName: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { guestName } = await params;
+    const decodedName = decodeURIComponent(guestName).replace(/-/g, " ");
+
+    return {
+        title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
+        description: "We invite you to share in our joy at our wedding ceremony.",
+        openGraph: {
+            title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
+            description: "We invite you to share in our joy at our wedding ceremony.",
+            images: [
+                {
+                    url: "/image/metatag.png",
+                    width: 1200,
+                    height: 630,
+                    alt: "Restu & Tanya Wedding Invitation",
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
+            description: "We invite you to share in our joy at our wedding ceremony.",
+            images: ["/image/metatag.png"],
+        },
+    };
 }
 
 export default async function Page({ params }: PageProps) {
