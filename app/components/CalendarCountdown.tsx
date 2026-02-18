@@ -57,10 +57,13 @@ export default function CalendarCountdown() {
             days.push(
                 <div key={i} className="flex items-center justify-center p-2 relative group cursor-default">
                     {isWeddingDay && (
-                        <>
-                            <div className="absolute inset-0 bg-[#064E56]/10 rounded-full animate-ping opacity-75"></div>
-                            <div className="absolute inset-0 bg-[#064E56] rounded-full shadow-lg scale-90"></div>
-                        </>
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <img
+                                src="/image/love_sketch.png"
+                                alt="Highlight"
+                                className="w-12 h-12 max-w-none opacity-80"
+                            />
+                        </div>
                     )}
                     <span
                         className={`relative z-10 w-8 h-8 flex items-center justify-center rounded-full text-sm font-serif transition-colors ${isWeddingDay
