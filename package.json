@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.96.0",
     "@types/react-youtube": "^7.6.2",
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.564.0",

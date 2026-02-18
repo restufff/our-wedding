@@ -1,24 +1,37 @@
 "use server";
 
-import fs from "fs/promises";
-import path from "path";
-
-const DATA_FILE_PATH = path.join(process.cwd(), "data", "comments.json");
+import { supabase } from "@/lib/supabase";
 
 export interface Comment {
     id: string;
     name: string;
     message: string;
-    status: "Hadir" | "Tidak Hadir" | "Masih Bingung";
+    status: "Hadir" | "Tidak Hadir" | "Mungkin";
     createdAt: string;
 }
 
 export async function getComments(): Promise<Comment[]> {
     try {
-        const data = await fs.readFile(DATA_FILE_PATH, "utf-8");
-        return JSON.parse(data);
+        const { data, error } = await supabase
+            .from('comments')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error("Error fetching comments:", error);
+            return [];
+        }
+
+        // Map database fields to interface (if needed, or just match schema)
+        return data.map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            message: item.message,
+            status: item.status,
+            createdAt: item.created_at
+        }));
     } catch (error) {
-        // If file doesn't exist or error reading, return empty array
+        console.error("Unexpected error:", error);
         return [];
     }
 }
@@ -26,26 +39,32 @@ export async function getComments(): Promise<Comment[]> {
 export async function submitComment(prevState: any, formData: FormData) {
     const name = formData.get("name") as string;
     const message = formData.get("message") as string;
-    const status = formData.get("status") as "Hadir" | "Tidak Hadir" | "Masih Bingung";
+    const status = formData.get("status") as "Hadir" | "Tidak Hadir" | "Mungkin";
 
     if (!name || !message || !status) {
         return { message: "Please fill in all fields" };
     }
 
-    const newComment: Comment = {
-        id: Date.now().toString(),
-        name,
-        message,
-        status,
-        createdAt: new Date().toISOString(),
-    };
-
     try {
-        const comments = await getComments();
-        comments.push(newComment);
-        await fs.writeFile(DATA_FILE_PATH, JSON.stringify(comments, null, 2));
+        const { error } = await supabase
+            .from('comments')
+            .insert([
+                {
+                    name,
+                    message,
+                    status,
+                    // created_at is automatically handled by default default now()
+                }
+            ]);
+
+        if (error) {
+            console.error("Supabase error:", error);
+            return { message: "Failed to save comment" };
+        }
+
         return { message: "Comment submitted successfully!", success: true };
     } catch (error) {
+        console.error("Unexpected error:", error);
         return { message: "Failed to save comment" };
     }
 }

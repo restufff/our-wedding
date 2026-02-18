@@ -17,7 +17,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
     const [loading, setLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState("");
-    const [status, setStatus] = useState<"Hadir" | "Tidak Hadir" | "Masih Bingung">("Hadir");
+    const [status, setStatus] = useState<"Hadir" | "Tidak Hadir" | "Mungkin">("Hadir");
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
     // Fetch comments on mount
@@ -88,7 +88,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                     <div className="space-y-1">
                         <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Kehadiran</label>
                         <div className="grid grid-cols-3 gap-2">
-                            {(["Hadir", "Masih Bingung", "Tidak Hadir"] as const).map((option) => (
+                            {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => (
                                 <button
                                     key={option}
                                     type="button"
@@ -231,7 +231,7 @@ function MarqueeColumn({ comments, direction, duration }: { comments: Comment[],
                             </span>
                         </div>
                         <p className="opacity-80 leading-relaxed font-serif break-words">
-                            "{comment.message}"
+                            {comment.message}
                         </p>
                     </div>
                 </div>
