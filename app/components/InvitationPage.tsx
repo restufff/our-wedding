@@ -69,33 +69,53 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                 className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#064E56] bg-[#EBE2DC] overflow-hidden flex flex-col justify-between"
             >
                 {/* Top Flower Frame */}
-                <div className="absolute top-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center">
+                <motion.div
+                    className="absolute top-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center"
+                    initial={{ y: -100, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                >
                     <motion.img
                         src="/image/rose-up.png"
                         alt="Top Frame Decoration"
                         className="w-full md:w-[80%] lg:w-[60%] object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
-                        initial={{ scale: 1.02 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        animate={{ y: [-10, 0, -10] }}
+                        transition={{
+                            duration: 5,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            ease: "easeInOut"
+                        }}
                     />
-                </div>
+                </motion.div>
 
                 {/* Bottom Flower Frame */}
-                <div className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center">
+                <motion.div
+                    className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center"
+                    initial={{ y: 100, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                >
                     <motion.img
                         src="/image/rose-bottom.png"
                         alt="Bottom Frame Decoration"
                         className="w-full md:w-[80%] lg:w-[60%] object-contain origin-bottom"
-                        initial={{ scale: 1.02 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{
+                            duration: 6,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            ease: "easeInOut"
+                        }}
                     />
-                </div>
+                </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: false, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
                     className="max-w-5xl mx-auto space-y-16 md:space-y-24 text-center relative z-10 pt-28 md:pt-40 pb-12 w-full"
                 >
@@ -121,7 +141,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             <motion.div
                                 initial={{ opacity: 0, x: -50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: false, amount: 0.3 }}
                                 transition={{ duration: 0.8 }}
                                 className="flex flex-col items-center space-y-6 group"
                             >
@@ -132,9 +152,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
                                         <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
                                             {/* Photo Placeholder / Image */}
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply"></div>
-                                            <span className="text-xs uppercase tracking-widest opacity-40 font-bold z-10">Restu Fauzi</span>
-                                            {/* If you have images, replace the above span with: <img src="..." className="w-full h-full object-cover" /> */}
+                                            <img
+                                                src="/image/restu.jpeg"
+                                                alt="Restu Fauzi"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +179,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             <motion.div
                                 initial={{ opacity: 0, x: 50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: false, amount: 0.3 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="flex flex-col items-center space-y-6 group"
                             >
@@ -167,8 +190,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
                                         <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
                                             {/* Photo Placeholder / Image */}
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply"></div>
-                                            <span className="text-xs uppercase tracking-widest opacity-40 font-bold z-10">Tanya Apriska</span>
+                                            <img
+                                                src="/image/tania.jpeg"
+                                                alt="Tanya Apriska"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +220,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.6 }}
                             className="space-y-4"
                         >
@@ -201,12 +228,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                         </motion.div>
 
-                        <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-center max-w-4xl mx-auto px-4">
+                        <div className="grid md:grid-cols-2 gap-16 md:gap-12 text-center max-w-4xl mx-auto px-4">
                             {/* Akad Nikah */}
                             <motion.div
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: false, amount: 0.3 }}
                                 transition={{ duration: 0.8 }}
                                 className="relative group"
                             >
@@ -252,7 +279,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             <motion.div
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                viewport={{ once: false, amount: 0.3 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="relative group"
                             >
@@ -299,7 +326,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.8 }}
                             className="w-full max-w-3xl mx-auto px-4 mt-8 md:mt-12 mb-6 flex justify-center"
                         >
@@ -314,7 +341,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="flex justify-center pt-4 mb-16 md:mb-24"
                         >
@@ -336,7 +363,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.8 }}
                             className="pb-12"
                         >
@@ -347,7 +374,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.8 }}
                         >
                             <WeddingGift />
@@ -357,7 +384,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.8 }}
                         >
                             <CommentSection guestName={guestName} />
@@ -368,7 +395,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false, amount: 0.3 }}
                             transition={{ duration: 0.6 }}
                             className="py-8"
                         >
@@ -382,7 +409,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 1, delay: 0.2 }}
                         className="pb-24 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2"
                     >

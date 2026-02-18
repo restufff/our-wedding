@@ -67,13 +67,40 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                 <h3 className="font-whispering text-3xl md:text-5xl text-[#064E56] mt-2">Kirim Ucapan</h3>
             </div>
 
-            {/* Comment Form */}
+            {/* Comment Form with Angel & Stitch Sitting on Top */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="relative z-20 w-full max-w-md bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 md:p-8 mb-16"
+                className="relative z-20 w-full max-w-md bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 md:p-8 mb-16 mt-20 md:mt-40"
             >
+                {/* Angel & Stitch Decorations - Sitting on top */}
+                <div className="absolute -top-31 md:-top-40 left-0 right-0 flex justify-center items-end gap-4 pointer-events-none z-10">
+                    <motion.img
+                        src="/image/angel.png"
+                        alt="Angel Decoration"
+                        className="w-24 md:w-32 drop-shadow-lg transform translate-y-2 origin-bottom"
+                        animate={{ rotate: [-3, 3, -3] }}
+                        transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    <motion.img
+                        src="/image/stitch.png"
+                        alt="Stitch Decoration"
+                        className="w-24 md:w-32 drop-shadow-lg transform translate-y-2 origin-bottom"
+                        animate={{ rotate: [3, -3, 3] }}
+                        transition={{
+                            duration: 3.2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.2 // Slight delay for natural feel
+                        }}
+                    />
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Name Field (Locked) */}
                     <div className="space-y-1">
@@ -184,7 +211,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
