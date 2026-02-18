@@ -68,14 +68,19 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
             </div>
 
             {/* Comment Form with Angel & Stitch Sitting on Top */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="relative z-20 w-full max-w-md bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 md:p-8 mb-16 mt-20 md:mt-40"
-            >
-                {/* Angel & Stitch Decorations - Sitting on top */}
-                <div className="absolute -top-31 md:-top-40 left-0 right-0 flex justify-center items-end gap-4 pointer-events-none z-10">
+            <div className="relative z-20 w-full max-w-md mb-16 mt-20 md:mt-40">
+                {/* Angel & Stitch Decorations - Sitting on top (Behind the box) */}
+                <motion.div
+                    className="absolute -top-31 md:-top-40 left-0 right-0 flex justify-center items-end gap-4 pointer-events-none z-0"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                    transition={{
+                        delay: 0.6, // Slightly reduced delay but still after box (box is usually instant/fast)
+                        duration: 0.8,
+                        ease: "easeOut"
+                    }}
+                >
                     <motion.img
                         src="/image/angel.png"
                         alt="Angel Decoration"
@@ -99,92 +104,100 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                             delay: 0.2 // Slight delay for natural feel
                         }}
                     />
-                </div>
+                </motion.div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name Field (Locked) */}
-                    <div className="space-y-1">
-                        <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Nama</label>
-                        <div className="flex items-center gap-3 bg-white/30 rounded-lg px-4 py-3 border border-[#064E56]/5 cursor-not-allowed opacity-80">
-                            <User size={18} className="text-[#064E56]" />
-                            <span className="font-serif font-bold text-[#064E56]">{guestName}</span>
+                {/* The Comment Box (In front) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                    className="relative z-10 w-full h-full bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 md:p-8"
+                >
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Name Field (Locked) */}
+                        <div className="space-y-1">
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Nama</label>
+                            <div className="flex items-center gap-3 bg-white/30 rounded-lg px-4 py-3 border border-[#064E56]/5 cursor-not-allowed opacity-80">
+                                <User size={18} className="text-[#064E56]" />
+                                <span className="font-serif font-bold text-[#064E56]">{guestName}</span>
+                            </div>
                         </div>
-                    </div>
 
-                    {/* RSVP Status */}
-                    <div className="space-y-1">
-                        <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Kehadiran</label>
-                        <div className="grid grid-cols-3 gap-2">
-                            {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    onClick={() => setStatus(option)}
-                                    className={`relative py-2 px-1 rounded-lg text-xs font-bold transition-all border ${status === option
-                                        ? "bg-[#064E56] text-white border-[#064E56]"
-                                        : "bg-white/30 text-[#064E56] border-[#064E56]/10 hover:bg-[#064E56]/5"
+                        {/* RSVP Status */}
+                        <div className="space-y-1">
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Kehadiran</label>
+                            <div className="grid grid-cols-3 gap-2">
+                                {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => (
+                                    <button
+                                        key={option}
+                                        type="button"
+                                        onClick={() => setStatus(option)}
+                                        className={`relative py-2 px-1 rounded-lg text-xs font-bold transition-all border ${status === option
+                                            ? "bg-[#064E56] text-white border-[#064E56]"
+                                            : "bg-white/30 text-[#064E56] border-[#064E56]/10 hover:bg-[#064E56]/5"
+                                            }`}
+                                    >
+                                        {option}
+                                        {status === option && (
+                                            <motion.div
+                                                layoutId="status-indicator"
+                                                className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[#064E56]" />
+                                            </motion.div>
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Message Area */}
+                        <div className="space-y-1">
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Pesan</label>
+                            <div className="relative">
+                                <textarea
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Tulis ucapan dan doa..."
+                                    className="w-full bg-white/30 border border-[#064E56]/10 rounded-lg p-4 text-sm text-[#064E56] placeholder:text-[#064E56]/40 focus:outline-none focus:ring-2 focus:ring-[#064E56]/20 min-h-[120px] resize-none backdrop-blur-sm"
+                                    required
+                                />
+                                <MessageCircle className="absolute top-4 right-4 text-[#064E56]/20" size={20} />
+                            </div>
+                        </div>
+
+                        {/* Submit Button */}
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-[#064E56] text-white py-3 rounded-lg font-bold tracking-widest text-xs uppercase hover:bg-[#064E56]/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-[#064E56]/20"
+                        >
+                            {isSubmitting ? (
+                                <span className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <>
+                                    Kirim Ucapan <Send size={14} />
+                                </>
+                            )}
+                        </button>
+
+                        {/* Feedback Message */}
+                        <AnimatePresence>
+                            {feedback && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className={`text-center text-xs font-bold p-2 rounded ${feedback.type === 'success' ? 'text-green-700 bg-green-100' : 'text-red-700 bg-red-100'
                                         }`}
                                 >
-                                    {option}
-                                    {status === option && (
-                                        <motion.div
-                                            layoutId="status-indicator"
-                                            className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center"
-                                        >
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#064E56]" />
-                                        </motion.div>
-                                    )}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Message Area */}
-                    <div className="space-y-1">
-                        <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Pesan</label>
-                        <div className="relative">
-                            <textarea
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                placeholder="Tulis ucapan dan doa..."
-                                className="w-full bg-white/30 border border-[#064E56]/10 rounded-lg p-4 text-sm text-[#064E56] placeholder:text-[#064E56]/40 focus:outline-none focus:ring-2 focus:ring-[#064E56]/20 min-h-[120px] resize-none backdrop-blur-sm"
-                                required
-                            />
-                            <MessageCircle className="absolute top-4 right-4 text-[#064E56]/20" size={20} />
-                        </div>
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full bg-[#064E56] text-white py-3 rounded-lg font-bold tracking-widest text-xs uppercase hover:bg-[#064E56]/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-[#064E56]/20"
-                    >
-                        {isSubmitting ? (
-                            <span className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
-                        ) : (
-                            <>
-                                Kirim Ucapan <Send size={14} />
-                            </>
-                        )}
-                    </button>
-
-                    {/* Feedback Message */}
-                    <AnimatePresence>
-                        {feedback && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className={`text-center text-xs font-bold p-2 rounded ${feedback.type === 'success' ? 'text-green-700 bg-green-100' : 'text-red-700 bg-red-100'
-                                    }`}
-                            >
-                                {feedback.text}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </form>
-            </motion.div>
+                                    {feedback.text}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </form>
+                </motion.div>
+            </div>
 
             {/* Dedicated Marquee Section */}
             <div className="relative z-10 w-full max-w-4xl mx-auto mt-8">

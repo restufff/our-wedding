@@ -399,9 +399,54 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             transition={{ duration: 0.6 }}
                             className="py-8"
                         >
-                            <div className="inline-block border border-[#064E56]/30 px-6 py-2 rounded-full">
-                                <span className="text-sm tracking-widest uppercase opacity-70">Spesial untuk </span>
-                                <span className="font-serif italic text-lg ml-1">{guestName}</span>
+                            <div className="relative inline-block mt-12 md:mt-16 w-full max-w-sm mx-auto">
+                                {/* Angel & Stitch Decorations - Sitting on top (Behind the box) */}
+                                <motion.div
+                                    className="absolute bottom-[70%] left-0 right-0 flex justify-center items-end gap-2 pointer-events-none z-0 w-full"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                                    transition={{
+                                        delay: 0.8, // Slightly reduced delay but still after box
+                                        duration: 0.8,
+                                        ease: "easeOut"
+                                    }}
+                                >
+                                    <motion.img
+                                        src="/image/angel_sit.png"
+                                        alt="Angel Sitting"
+                                        className="w-16 md:w-20 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
+                                        animate={{ rotate: [-2, 2, -2] }}
+                                        transition={{
+                                            duration: 4,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                    />
+                                    <motion.img
+                                        src="/image/stitch_sit.png"
+                                        alt="Stitch Sitting"
+                                        className="w-16 md:w-20 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
+                                        animate={{ rotate: [2, -2, 2] }}
+                                        transition={{
+                                            duration: 4.5,
+                                            repeat: Infinity,
+                                            ease: "easeInOut",
+                                            delay: 0.5
+                                        }}
+                                    />
+                                </motion.div>
+
+                                {/* The "Spesial untuk" Box (In front) */}
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                                    className="relative z-10 border border-[#064E56]/30 px-6 py-2 rounded-full bg-[#EBE2DC]/50 backdrop-blur-sm mx-auto inline-block"
+                                >
+                                    <span className="text-sm tracking-widest uppercase opacity-70">Spesial untuk </span>
+                                    <span className="font-serif italic text-lg ml-1">{guestName}</span>
+                                </motion.div>
                             </div>
                         </motion.div>
                     )}
