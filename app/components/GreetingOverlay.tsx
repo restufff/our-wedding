@@ -81,9 +81,9 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
             }}
         >
             {/* Background Image - Parallax Effect possible here if we wanted, but static is fine for now */}
-            {/* Mobile Background Image */}
+            {/* Mobile Background Image (Stretched) */}
             <motion.div
-                className="absolute inset-0 z-0 bg-center bg-cover md:hidden"
+                className="absolute inset-0 z-0 bg-center bg-[length:100%_100%] md:hidden"
                 style={{ backgroundImage: "url('/image/bg-blue.jpg')" }}
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
@@ -92,7 +92,7 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
 
             {/* Desktop Background Image */}
             <motion.div
-                className="absolute inset-0 z-0 bg-center bg-cover hidden md:block"
+                className="absolute inset-0 z-0 bg-center bg-[length:100%_100%] hidden md:block"
                 style={{ backgroundImage: "url('/image/bg-dekstop.jpg')" }}
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
