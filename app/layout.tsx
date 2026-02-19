@@ -37,14 +37,25 @@ export const metadata = {
   },
 };
 
+import { Alegreya } from 'next/font/google';
+import { LanguageProvider } from '@/app/context/LanguageContext';
+
+const alegreya = Alegreya({
+  subsets: ['latin'],
+  variable: '--font-alegreya',
+  display: 'swap',
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
       <body
-        className={`${whispering.variable}`}
+        className={`${whispering.variable} ${alegreya.variable}`}
         suppressHydrationWarning={true}
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

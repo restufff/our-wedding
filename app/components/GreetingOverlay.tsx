@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { useEffect } from "react";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 interface GreetingOverlayProps {
     onOpen: () => void;
@@ -9,6 +10,8 @@ interface GreetingOverlayProps {
 }
 
 export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayProps) {
+    const { t } = useLanguage();
+
     // Lock body scroll when overlay is active
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -108,8 +111,8 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
                 className="relative z-10 text-center space-y-6 p-6"
                 variants={containerVariants}
             >
-                <motion.div variants={itemVariants} className="text-xs tracking-[0.2em] uppercase text-[#064E56] font-bold">
-                    Perayaan Pernikahan
+                <motion.div variants={itemVariants} className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#064E56] font-medium opacity-80">
+                    {t('greeting.title')}
                 </motion.div>
 
                 <div className="flex flex-col items-center gap-2 py-4">
@@ -133,17 +136,34 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
                     </motion.h1>
                 </div>
 
-                <motion.div variants={itemVariants} className="text-base text-[#064E56] font-bold">
-                    Sabtu, 28 Maret 2026
+                <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 md:gap-6 text-[#064E56] my-6">
+                    <div className="flex flex-col items-center">
+                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.days.saturday')}</span>
+                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">28</span>
+                    </div>
+
+                    <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
+
+                    <div className="flex flex-col items-center">
+                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.months.march')}</span>
+                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">03</span>
+                    </div>
+
+                    <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
+
+                    <div className="flex flex-col items-center">
+                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.years.year')}</span>
+                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">26</span>
+                    </div>
                 </motion.div>
 
                 <div className="mt-8 mb-4">
                     {guestName ? (
-                        <motion.div variants={itemVariants}>
-                            <div className="text-[0.65rem] text-[#064E56] uppercase tracking-widest mb-2 font-bold">
-                                Undangan Spesial Untuk
+                        <motion.div variants={itemVariants} className="flex flex-col items-center">
+                            <div className="text-xs md:text-sm font-serif italic text-[#064E56]/80 mb-2">
+                                {t('greeting.specialFor')}
                             </div>
-                            <div className="text-xl font-serif text-[#064E56] font-bold">
+                            <div className="text-2xl md:text-3xl font-serif text-[#064E56]">
                                 {guestName}
                             </div>
                         </motion.div>
@@ -157,9 +177,11 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-3 bg-[#064E56] text-white text-xs uppercase tracking-widest font-medium rounded-full cursor-pointer hover:bg-[#5FBae0] transition-colors shadow-lg shadow-[#064E56]/20 relative overflow-hidden group"
+                    className="px-8 py-3 bg-[#064E56] text-[#f7f3ee] text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full cursor-pointer hover:bg-[#04363d] transition-all shadow-lg hover:shadow-xl shadow-[#064E56]/20 relative overflow-hidden group"
                 >
-                    <span className="relative z-10">Buka Undangan</span>
+                    <span className="relative z-10 flex items-center gap-2">
+                        {t('greeting.open')}
+                    </span>
                     <motion.div
                         className="absolute inset-0 bg-white/20"
                         initial={{ x: "-100%" }}

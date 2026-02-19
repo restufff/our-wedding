@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 // --- CUSTOMIZE BUTTON COLORS HERE ---
 const BUTTON_STYLE_ON = "bg-[#ffbfdd]/80 hover:bg-[#ffbfdd] border-[#EBE2DC]/30";
@@ -15,6 +16,7 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ play, onEnded }: VideoSectionProps) {
+    const { t } = useLanguage();
     const videoRef = useRef<HTMLVideoElement>(null);
     const [showFeedback, setShowFeedback] = useState<"play" | "pause" | null>(null);
     const [isMuted, setIsMuted] = useState(true); // Default to true for autoplay
@@ -141,7 +143,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
                                     className="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10"
                                 >
                                     <p className="text-white text-[10px] uppercase tracking-widest font-medium whitespace-nowrap">
-                                        Hidupkan Musik
+                                        {t('video.unmute')}
                                     </p>
                                     {/* Arrow pointing to button */}
                                     <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[6px] border-l-black/40 border-b-[6px] border-b-transparent"></div>

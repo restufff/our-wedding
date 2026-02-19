@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function WeddingGift() {
+    const { t } = useLanguage();
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
     const accounts = [
@@ -56,10 +58,10 @@ export default function WeddingGift() {
     return (
         <div className="w-full max-w-4xl mx-auto px-4 mt-16 md:mt-24 mb-16">
             <div className="text-center space-y-4 mb-12">
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">Amplop Digital</h2>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">{t('gift.title')}</h2>
                 <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                 <p className="text-sm md:text-base font-serif opacity-80 text-[#064E56] max-w-lg mx-auto">
-                    Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami menerima kado secara cashless.
+                    {t('gift.description')}
                 </p>
             </div>
 

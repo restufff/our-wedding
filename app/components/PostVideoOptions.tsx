@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown, RotateCcw } from "lucide-react";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 interface PostVideoOptionsProps {
     onReplay: () => void;
@@ -9,6 +10,7 @@ interface PostVideoOptionsProps {
 }
 
 export default function PostVideoOptions({ onReplay, onContinue }: PostVideoOptionsProps) {
+    const { t } = useLanguage();
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -22,7 +24,7 @@ export default function PostVideoOptions({ onReplay, onContinue }: PostVideoOpti
                     className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors group"
                 >
                     <RotateCcw className="w-6 h-6 group-hover:-rotate-90 transition-transform" />
-                    <span className="text-xs uppercase tracking-widest">Ulangi Video</span>
+                    <span className="text-xs uppercase tracking-widest">{t('video.replay')}</span>
                 </button>
             </div>
 
@@ -31,7 +33,7 @@ export default function PostVideoOptions({ onReplay, onContinue }: PostVideoOpti
                     onClick={onContinue}
                     className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors animate-pulse"
                 >
-                    <span className="text-xs uppercase tracking-widest">Gulir ke bawah untuk lanjut</span>
+                    <span className="text-xs uppercase tracking-widest">{t('video.scrollDown')}</span>
                     <ChevronDown className="w-6 h-6" />
                 </button>
             </div> */}

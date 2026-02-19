@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, MessageCircle, CheckCircle, XCircle, HelpCircle } from "lucide-react";
 import { getComments, submitComment, type Comment } from "@/app/actions/comments";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 interface CommentSectionProps {
     guestName?: string;
@@ -12,7 +13,9 @@ interface CommentSectionProps {
 // Helper to generate random positions/durations
 const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
-export default function CommentSection({ guestName = "Guest" }: CommentSectionProps) {
+export default function CommentSection({ guestName }: CommentSectionProps) {
+    const { t } = useLanguage();
+    const finalGuestName = guestName || t('comments.guestLabel');
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,20 +39,20 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
         setFeedback(null);
 
         const formData = new FormData();
-        formData.append("name", guestName);
+        formData.append("name", finalGuestName);
         formData.append("message", message);
         formData.append("status", status);
 
         const result = await submitComment(null, formData);
 
         if (result.success) {
-            setFeedback({ type: 'success', text: "Ucapan berhasil dikirim!" });
+            setFeedback({ type: 'success', text: t('comments.successMsg') });
             setMessage("");
             // Refresh comments (optimistic update would be better, but fetching is safe)
             const updated = await getComments();
             setComments(updated);
         } else {
-            setFeedback({ type: 'error', text: result.message || "Gagal menyimpan ucapan" });
+            setFeedback({ type: 'error', text: result.message || t('comments.errorMsg') });
         }
         setIsSubmitting(false);
 
@@ -62,9 +65,9 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
 
             {/* Section Header */}
             <div className="relative z-20 text-center mb-10 space-y-2">
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">Ucapan & Doa</h2>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">{t('comments.title')}</h2>
                 <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
-                <h3 className="font-whispering text-3xl md:text-5xl text-[#064E56] mt-2">Kirim Ucapan</h3>
+                <h3 className="font-whispering text-3xl md:text-5xl text-[#064E56] mt-2">{t('comments.subtitle')}</h3>
             </div>
 
             {/* Comment Form with Angel & Stitch Sitting on Top */}
@@ -74,7 +77,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                     className="absolute -top-31 md:-top-40 left-0 right-0 flex justify-center items-end gap-4 pointer-events-none z-0"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                    viewport={{ once: true, margin: "-50px" }} // Changed to once: true to prevent flickering
                     transition={{
                         delay: 0.6, // Slightly reduced delay but still after box (box is usually instant/fast)
                         duration: 0.8,
@@ -110,55 +113,58 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                    viewport={{ once: true, margin: "-50px" }} // Changed to once: true to prevent flickering
                     className="relative z-10 w-full h-full bg-white/40 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-6 md:p-8"
                 >
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Name Field (Locked) */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Nama</label>
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.nameLabel')}</label>
                             <div className="flex items-center gap-3 bg-white/30 rounded-lg px-4 py-3 border border-[#064E56]/5 cursor-not-allowed opacity-80">
                                 <User size={18} className="text-[#064E56]" />
-                                <span className="font-serif font-bold text-[#064E56]">{guestName}</span>
+                                <span className="font-serif font-bold text-[#064E56]">{finalGuestName}</span>
                             </div>
                         </div>
 
                         {/* RSVP Status */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Kehadiran</label>
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.attendanceLabel')}</label>
                             <div className="grid grid-cols-3 gap-2">
-                                {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        onClick={() => setStatus(option)}
-                                        className={`relative py-2 px-1 rounded-lg text-xs font-bold transition-all border ${status === option
-                                            ? "bg-[#064E56] text-white border-[#064E56]"
-                                            : "bg-white/30 text-[#064E56] border-[#064E56]/10 hover:bg-[#064E56]/5"
-                                            }`}
-                                    >
-                                        {option}
-                                        {status === option && (
-                                            <motion.div
-                                                layoutId="status-indicator"
-                                                className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-[#064E56]" />
-                                            </motion.div>
-                                        )}
-                                    </button>
-                                ))}
+                                {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => {
+                                    const label = option === "Hadir" ? t('comments.attendance.present') : option === "Mungkin" ? t('comments.attendance.maybe') : t('comments.attendance.absent');
+                                    return (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            onClick={() => setStatus(option)}
+                                            className={`relative py-2 px-1 rounded-lg text-xs font-bold transition-all border ${status === option
+                                                ? "bg-[#064E56] text-white border-[#064E56]"
+                                                : "bg-white/30 text-[#064E56] border-[#064E56]/10 hover:bg-[#064E56]/5"
+                                                }`}
+                                        >
+                                            {label}
+                                            {status === option && (
+                                                <motion.div
+                                                    layoutId="status-indicator"
+                                                    className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center"
+                                                >
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-[#064E56]" />
+                                                </motion.div>
+                                            )}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
 
                         {/* Message Area */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">Pesan</label>
+                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.messageLabel')}</label>
                             <div className="relative">
                                 <textarea
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Tulis ucapan dan doa..."
+                                    placeholder={t('comments.messagePlaceholder')}
                                     className="w-full bg-white/30 border border-[#064E56]/10 rounded-lg p-4 text-sm text-[#064E56] placeholder:text-[#064E56]/40 focus:outline-none focus:ring-2 focus:ring-[#064E56]/20 min-h-[120px] resize-none backdrop-blur-sm"
                                     required
                                 />
@@ -176,7 +182,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                                 <span className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
                             ) : (
                                 <>
-                                    Kirim Ucapan <Send size={14} />
+                                    {t('comments.submit')} <Send size={14} />
                                 </>
                             )}
                         </button>
@@ -215,8 +221,8 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                                                 <div className="w-12 h-12 bg-[#064E56]/10 rounded-full flex items-center justify-center mx-auto mb-2">
                                                     <CheckCircle className="text-[#064E56]" size={24} />
                                                 </div>
-                                                <p className="font-whispering text-2xl text-[#064E56]">Terima Kasih!</p>
-                                                <p className="text-xs uppercase tracking-widest text-[#064E56]/80 font-bold">Ucapan berhasil dikirim</p>
+                                                <p className="font-whispering text-2xl text-[#064E56]">{t('comments.successThanks')}</p>
+                                                <p className="text-xs uppercase tracking-widest text-[#064E56]/80 font-bold">{t('comments.successMsg')}</p>
                                             </motion.div>
                                         </>
                                     ) : (
@@ -224,7 +230,7 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
                                             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
                                                 <XCircle className="text-red-600" size={24} />
                                             </div>
-                                            <p className="text-xs uppercase tracking-widest text-red-600 font-bold">Gagal Mengirim</p>
+                                            <p className="text-xs uppercase tracking-widest text-red-600 font-bold">{t('comments.errorMsg')}</p>
                                             <p className="text-[10px] opacity-70">{feedback.text}</p>
                                         </div>
                                     )}
@@ -238,26 +244,43 @@ export default function CommentSection({ guestName = "Guest" }: CommentSectionPr
             {/* Dedicated Marquee Section */}
             <div className="relative z-10 w-full max-w-4xl mx-auto mt-8">
                 <div className="text-center mb-6 space-y-2">
-                    <h3 className="font-whispering text-2xl md:text-3xl text-[#064E56]">Doa & Ucapan Terbaru</h3>
+                    <h3 className="font-whispering text-2xl md:text-3xl text-[#064E56]">{t('comments.recentTitle')}</h3>
                     <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
                 </div>
 
-                <div className="bg-white/30 backdrop-blur-md rounded-2xl border border-white/40 p-1 md:p-2 h-[400px] overflow-hidden relative shadow-inner">
-                    {/* Mask gradients */}
-                    <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
+                <div className="bg-white/30 backdrop-blur-md rounded-2xl border border-white/40 p-4 md:p-6 h-[400px] overflow-hidden relative shadow-inner flex items-center justify-center">
+                    {comments.length > 0 ? (
+                        <>
+                            {/* Mask gradients */}
+                            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
+                            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
 
-                    <div className="flex justify-between px-2 md:px-4 h-full gap-2 md:gap-4">
-                        {/* Left Column (Scrolling Up) */}
-                        <div className="w-1/2 h-full relative overflow-hidden">
-                            <MarqueeColumn comments={comments.slice(0, Math.ceil(comments.length / 2))} direction="up" duration={40} />
-                        </div>
+                            <div className="flex justify-between px-2 md:px-4 h-full gap-2 md:gap-4 w-full">
+                                {/* Left Column (Scrolling Up) */}
+                                <div className="w-1/2 h-full relative overflow-hidden">
+                                    <MarqueeColumn comments={comments.slice(0, Math.ceil(comments.length / 2))} direction="up" duration={40} />
+                                </div>
 
-                        {/* Right Column (Scrolling Down) */}
-                        <div className="w-1/2 h-full relative overflow-hidden">
-                            <MarqueeColumn comments={comments.slice(Math.ceil(comments.length / 2))} direction="down" duration={50} />
-                        </div>
-                    </div>
+                                {/* Right Column (Scrolling Down) */}
+                                <div className="w-1/2 h-full relative overflow-hidden">
+                                    <MarqueeColumn comments={comments.slice(Math.ceil(comments.length / 2))} direction="down" duration={50} />
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className="text-center flex flex-col items-center gap-4"
+                        >
+                            <MessageCircle size={48} className="text-[#064E56]/30 mb-2" />
+                            <p className="font-whispering text-3xl md:text-5xl text-[#064E56] opacity-80">
+                                {t('comments.emptyState')}
+                            </p>
+                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-20 mt-2"></div>
+                        </motion.div>
+                    )}
                 </div>
             </div>
         </div >
@@ -299,16 +322,24 @@ function MarqueeColumn({ comments, direction, duration }: { comments: Comment[],
         >
             {displayComments.map((comment, i) => (
                 <div key={`${comment.id}-${i}`} className="px-2">
-                    <div className="bg-white/20 backdrop-blur-sm p-3 md:p-4 rounded-xl border border-white/30 shadow-none text-xs text-[#064E56]">
-                        <div className="flex justify-between items-start mb-2 gap-2 border-b border-[#064E56]/10 pb-2">
-                            <span className="font-bold flex-1 break-words leading-tight text-[10px] md:text-xs">{comment.name}</span>
-                            <span className={`shrink-0 text-[6px] md:text-[9px] uppercase px-1.5 md:px-3 py-1 rounded-full font-bold opacity-80 whitespace-nowrap min-w-[40px] md:min-w-[70px] tracking-tight md:tracking-normal text-center ${comment.status === 'Hadir' ? 'text-green-800 bg-green-100/60' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/60' : 'text-amber-800 bg-amber-100/60'}`}>
+                    <div className="bg-white/40 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/50 shadow-md shadow-[#064E56]/5 text-[#064E56] relative overflow-hidden group hover:bg-white/60 transition-colors">
+                        {/* Decorative side accent */}
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#064E56]/40 to-transparent"></div>
+
+                        <div className="flex justify-between items-center mb-3 gap-2">
+                            <span className="font-bold block text-xs md:text-sm tracking-wide">{comment.name}</span>
+                            <span className={`shrink-0 text-[8px] md:text-[9px] uppercase px-2 md:px-3 py-1 rounded-full font-bold opacity-90 whitespace-nowrap tracking-wider text-center border shadow-sm ${comment.status === 'Hadir' ? 'text-[#064E56] bg-green-100/80 border-green-200/50' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/80 border-red-200/50' : 'text-amber-800 bg-amber-100/80 border-amber-200/50'}`}>
                                 {comment.status}
                             </span>
                         </div>
-                        <p className="opacity-80 leading-relaxed font-serif break-words">
-                            {comment.message}
-                        </p>
+
+                        <div className="relative pt-1 pl-1">
+                            {/* Decorative Quote Mark */}
+                            <span className="absolute -top-3 -left-1 text-4xl text-[#064E56] opacity-15 select-none leading-none font-serif">"</span>
+                            <p style={{ fontFamily: "var(--font-alegreya)" }} className="opacity-90 leading-relaxed italic text-xs md:text-sm break-words relative z-10">
+                                {comment.message}
+                            </p>
+                        </div>
                     </div>
                 </div>
             ))}

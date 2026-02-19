@@ -8,12 +8,35 @@ import PostVideoOptions from "@/app/components/PostVideoOptions";
 import CalendarCountdown from "@/app/components/CalendarCountdown";
 import WeddingGift from "@/app/components/WeddingGift";
 import CommentSection from "@/app/components/CommentSection";
+import { useLanguage } from "@/app/context/LanguageContext";
 
 interface InvitationPageProps {
     guestName?: string;
 }
 
+// --- KONFIGURASI TAMPILAN ---
+const FLOWER_CONFIG = {
+    bottomRoseWidth: {
+        // Lebar bunga untuk berbagai ukuran layar (dalam persentase viewport width - vw)
+        md: "45vw", // Layar Tablet/iPad Portrait (768px - 1024px)
+        lg: "40vw", // Layar Laptop/Desktop Kecil (1024px - 1280px)
+        xl: "35vw", // Layar Desktop (di atas 1280px)
+        maxDesktopWidth: "450px" // Batas maksimal lebar bunga di layar sangat besar (Full HD, 2K, 4K)
+    },
+    bottomRosePosition: {
+        // Atur posisi horizontal bunga di layar desktop/tablet.
+        // Ganti nilai dengan vw (viewport width) atau % agar masuk/keluar proporsional di semua layar.
+        // Semakin besar angka minusnya, semakin banyak yang terpotong ke samping.
+        leftOffset: "-8vw",
+        rightOffset: "-8vw",
+        // Atur posisi vertikal bunga mentok ke bawah. 
+        // 0 akan menempel pas di garis bawah. Gunakan nilai piksel seperti "-20px" jika ingin memotong sedikit ujung akarnya.
+        bottomOffset: "-30px"
+    }
+};
+
 export default function InvitationPage({ guestName }: InvitationPageProps) {
+    const { t } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
     const [replayKey, setReplayKey] = useState(0);
@@ -79,7 +102,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     <motion.img
                         src="/image/rose-up.png"
                         alt="Top Frame Decoration"
-                        className="w-full md:w-[80%] lg:w-[60%] object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
+                        className="w-full md:w-[60%] lg:w-[40%] object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
                         animate={{ y: [-10, 0, -10] }}
                         transition={{
                             duration: 5,
@@ -92,16 +115,61 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                 {/* Bottom Flower Frame */}
                 <motion.div
-                    className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none flex justify-center"
-                    initial={{ y: 100, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
+                    className="absolute bottom-0 left-0 right-0 w-full h-full z-0 pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: false, amount: 0.1 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                 >
+                    {/* Mobile Version: Centered Rose */}
                     <motion.img
                         src="/image/rose-bottom.png"
                         alt="Bottom Frame Decoration"
-                        className="w-full md:w-[80%] lg:w-[60%] object-contain origin-bottom"
+                        className="w-full md:hidden object-cover object-top origin-bottom absolute bottom-0 left-0"
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{
+                            duration: 6,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            ease: "easeInOut"
+                        }}
+                    />
+
+                    {/* Desktop Version: Left Rose */}
+                    <motion.img
+                        src="/image/blue-rose-bottom-left.png"
+                        alt="Bottom Left Decoration"
+                        style={{
+                            '--w-md': FLOWER_CONFIG.bottomRoseWidth.md,
+                            '--w-lg': FLOWER_CONFIG.bottomRoseWidth.lg,
+                            '--w-xl': FLOWER_CONFIG.bottomRoseWidth.xl,
+                            '--w-max': FLOWER_CONFIG.bottomRoseWidth.maxDesktopWidth,
+                            left: FLOWER_CONFIG.bottomRosePosition.leftOffset,
+                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset
+                        } as React.CSSProperties}
+                        className="hidden md:block h-auto w-[var(--w-md)] lg:w-[var(--w-lg)] xl:w-[var(--w-xl)] max-w-[var(--w-max)] object-contain object-left-bottom origin-bottom-left absolute"
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{
+                            duration: 6,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            ease: "easeInOut"
+                        }}
+                    />
+
+                    {/* Desktop Version: Right Rose */}
+                    <motion.img
+                        src="/image/blue-rose-bottom-right.png"
+                        alt="Bottom Right Decoration"
+                        style={{
+                            '--w-md': FLOWER_CONFIG.bottomRoseWidth.md,
+                            '--w-lg': FLOWER_CONFIG.bottomRoseWidth.lg,
+                            '--w-xl': FLOWER_CONFIG.bottomRoseWidth.xl,
+                            '--w-max': FLOWER_CONFIG.bottomRoseWidth.maxDesktopWidth,
+                            right: FLOWER_CONFIG.bottomRosePosition.rightOffset,
+                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset
+                        } as React.CSSProperties}
+                        className="hidden md:block h-auto w-[var(--w-md)] lg:w-[var(--w-lg)] xl:w-[var(--w-xl)] max-w-[var(--w-max)] object-contain object-right-bottom origin-bottom-right absolute"
                         animate={{ y: [0, 10, 0] }}
                         transition={{
                             duration: 6,
@@ -120,14 +188,14 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     className="max-w-5xl mx-auto space-y-16 md:space-y-24 text-center relative z-10 pt-28 md:pt-40 pb-12 w-full"
                 >
                     <div className="space-y-4">
-                        <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">Pasangan Mempelai</h2>
+                        <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">{t('invitation.coupleHeading')}</h2>
                         <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                     </div>
 
                     <p className="text-base md:text-xl leading-relaxed font-serif max-w-3xl mx-auto opacity-90 px-4">
-                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                        {t('invitation.quote')}
                         <br />
-                        <span className="text-xs md:text-sm mt-3 block opacity-75 font-sans tracking-widest">— Ar-Rum: 21</span>
+                        <span className="text-xs md:text-sm mt-3 block opacity-75 font-sans tracking-widest">{t('invitation.quoteSource')}</span>
                     </p>
 
                     <div className="relative mt-8 md:mt-20">
@@ -165,10 +233,10 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 <div className="text-center space-y-2 relative">
                                     <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Restu Fauzi</h3>
                                     <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
-                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">Mempelai Pria</p>
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">{t('invitation.groomRole')}</p>
                                     </div>
                                     <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
-                                        <p className="italic font-serif">Putra Tercinta dari</p>
+                                        <p className="italic font-serif">{t('invitation.sonOf')}</p>
                                         <p className="font-bold mt-1">Bapak Misar Suhendar</p>
                                         <p className="font-bold">& Ibu Meta Ostarica</p>
                                     </div>
@@ -203,10 +271,10 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 <div className="text-center space-y-2 relative">
                                     <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Tanya Apriska Putri</h3>
                                     <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
-                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">Mempelai Wanita</p>
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">{t('invitation.brideRole')}</p>
                                     </div>
                                     <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
-                                        <p className="italic font-serif">Putri Tercinta dari</p>
+                                        <p className="italic font-serif">{t('invitation.daughterOf')}</p>
                                         <p className="font-bold mt-1">Bapak Aprizal</p>
                                         <p className="font-bold">& Ibu Eka Susanti</p>
                                     </div>
@@ -224,7 +292,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             transition={{ duration: 0.6 }}
                             className="space-y-4"
                         >
-                            <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">Acara Pernikahan</h2>
+                            <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">{t('events.title')}</h2>
                             <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
                         </motion.div>
 
@@ -247,29 +315,29 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
 
                                         <div className="mt-8 space-y-2">
-                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">Akad Nikah</h3>
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">{t('events.akad')}</h3>
                                             <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
                                         </div>
 
                                         <div className="py-8 space-y-4">
                                             <div className="font-serif">
-                                                <p className="text-lg font-bold text-[#064E56]">Sabtu</p>
+                                                <p className="text-lg font-bold text-[#064E56]">{t('events.day.saturday')}</p>
                                                 <div className="flex items-center justify-center gap-4 my-2">
                                                     <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
                                                     <p className="text-3xl font-bold font-serif">28</p>
                                                     <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
                                                 </div>
-                                                <p className="text-lg text-[#064E56]">Maret 2026</p>
+                                                <p className="text-lg text-[#064E56]">{t('events.month.march')}</p>
                                             </div>
                                             <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
-                                                <p className="text-xs uppercase tracking-widest font-bold">08:00 WIB - Selesai</p>
+                                                <p className="text-xs uppercase tracking-widest font-bold">{t('events.time.akad')}</p>
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">Bertempat di</p>
-                                            <p className="font-serif italic text-lg leading-snug">Kediaman Mempelai Wanita</p>
-                                            <p className="text-xs opacity-70">Bengkulu, Seluma</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">{t('events.venueLabel')}</p>
+                                            <p className="font-serif italic text-lg leading-snug">{t('events.venueName')}</p>
+                                            <p className="text-xs opacity-70">{t('events.venueLocation')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -293,29 +361,29 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
 
                                         <div className="mt-8 space-y-2">
-                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">Resepsi</h3>
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">{t('events.reception')}</h3>
                                             <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
                                         </div>
 
                                         <div className="py-8 space-y-4">
                                             <div className="font-serif">
-                                                <p className="text-lg font-bold text-[#064E56]">Minggu</p>
+                                                <p className="text-lg font-bold text-[#064E56]">{t('events.day.sunday')}</p>
                                                 <div className="flex items-center justify-center gap-4 my-2">
                                                     <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
                                                     <p className="text-3xl font-bold font-serif">29</p>
                                                     <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
                                                 </div>
-                                                <p className="text-lg text-[#064E56]">Maret 2026</p>
+                                                <p className="text-lg text-[#064E56]">{t('events.month.march')}</p>
                                             </div>
                                             <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
-                                                <p className="text-xs uppercase tracking-widest font-bold">09:00 WIB - Selesai</p>
+                                                <p className="text-xs uppercase tracking-widest font-bold">{t('events.time.reception')}</p>
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">Bertempat di</p>
-                                            <p className="font-serif italic text-lg leading-snug">Kediaman Mempelai Wanita</p>
-                                            <p className="text-xs opacity-70">Bengkulu, Seluma</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">{t('events.venueLabel')}</p>
+                                            <p className="font-serif italic text-lg leading-snug">{t('events.venueName')}</p>
+                                            <p className="text-xs opacity-70">{t('events.venueLocation')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -353,7 +421,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             >
                                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                 <span className="relative z-10 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2 md:gap-3">
-                                    Lihat Lokasi
+                                    {t('events.mapButton')}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform w-3 h-3 md:w-4 md:h-4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                                 </span>
                             </a>
@@ -441,10 +509,10 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: false, margin: "-50px" }} // Re-animate on scroll
+                                    viewport={{ once: true, margin: "-50px" }} // Changed to once: true
                                     className="relative z-10 border border-[#064E56]/30 px-6 py-2 rounded-full bg-[#EBE2DC]/50 backdrop-blur-sm mx-auto inline-block"
                                 >
-                                    <span className="text-sm tracking-widest uppercase opacity-70">Spesial untuk </span>
+                                    <span className="text-sm tracking-widest uppercase opacity-70">{t('footer.specialFor')} </span>
                                     <span className="font-serif italic text-lg ml-1">{guestName}</span>
                                 </motion.div>
                             </div>
@@ -460,7 +528,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     >
                         <div className="w-8 h-[1px] bg-[#064E56]/30 my-4"></div>
                         <p className="font-serif italic opacity-80">
-                            Crafted with <span className="text-red-800/60">♥</span> by <span className="font-bold">Tania & Restu</span>
+                            {t('footer.craftedWith')} <span className="text-red-800/60">♥</span> {t('footer.by')} <span className="font-bold">Tania & Restu</span>
                         </p>
                         <p className="text-[10px] opacity-50 uppercase tracking-[0.2em]">Next.js • TypeScript • Tailwind</p>
                     </motion.div>
