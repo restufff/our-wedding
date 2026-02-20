@@ -7,9 +7,19 @@ import { useLanguage } from "@/app/context/LanguageContext";
 interface GreetingOverlayProps {
     onOpen: () => void;
     guestName?: string;
+    weddingDate: {
+        day: string;
+        month: string;
+        year: string;
+        dayLabelKey: string;
+        monthLabelKey: string;
+        yearLabelKey: string;
+        numberFontSize: string;
+        labelFontSize: string;
+    };
 }
 
-export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayProps) {
+export default function GreetingOverlay({ onOpen, guestName, weddingDate }: GreetingOverlayProps) {
     const { t } = useLanguage();
 
     // Lock body scroll when overlay is active
@@ -138,22 +148,22 @@ export default function GreetingOverlay({ onOpen, guestName }: GreetingOverlayPr
 
                 <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 md:gap-6 text-[#064E56] my-6">
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.days.saturday')}</span>
-                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">28</span>
+                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.dayLabelKey as any)}</span>
+                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.day}</span>
                     </div>
 
                     <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
 
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.months.march')}</span>
-                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">03</span>
+                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.monthLabelKey as any)}</span>
+                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.month}</span>
                     </div>
 
                     <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
 
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1">{t('greeting.years.year')}</span>
-                        <span className="font-whispering text-3xl md:text-4xl lg:text-5xl font-bold">26</span>
+                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.yearLabelKey as any)}</span>
+                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.year}</span>
                     </div>
                 </motion.div>
 

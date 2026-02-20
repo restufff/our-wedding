@@ -35,6 +35,18 @@ const FLOWER_CONFIG = {
     }
 };
 
+const WEDDING_DATE_CONFIG = {
+    day: "28",
+    month: "03",
+    year: "26",
+    dayLabelKey: "greeting.days.saturday" as const,
+    monthLabelKey: "greeting.months.march" as const,
+    yearLabelKey: "greeting.years.year" as const,
+    // Atur ukuran font di sini (Gunakan kelas Tailwind)
+    numberFontSize: "text-base md:text-lg lg:text-xl",
+    labelFontSize: "text-[8px] md:text-[9px]",
+};
+
 export default function InvitationPage({ guestName }: InvitationPageProps) {
     const { t } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +79,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     <GreetingOverlay
                         onOpen={handleOpen}
                         guestName={guestName}
+                        weddingDate={WEDDING_DATE_CONFIG}
                     />
                 )}
             </AnimatePresence>
