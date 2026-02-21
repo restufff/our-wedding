@@ -82,7 +82,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
     return (
         <div className="fixed top-0 left-0 w-full h-[100dvh] z-0 bg-black group overflow-hidden" onClick={togglePlay}>
             {/* Desktop Blur Background (Hidden on Mobile) */}
-            <div className="hidden md:block absolute inset-0 z-0 opacity-30 bg-gradient-to-br from-[#064E56] via-black to-[#064E56] pointer-events-none"></div>
+            <div className="hidden md:block absolute inset-0 z-0 opacity-30 bg-gradient-to-br from-[#366998] via-black to-[#366998] pointer-events-none"></div>
 
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none flex items-center justify-center z-10">
                 <video

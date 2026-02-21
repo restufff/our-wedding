@@ -38,7 +38,7 @@ const FLOWER_CONFIG = {
 const WEDDING_DATE_CONFIG = {
     day: "28",
     month: "03",
-    year: "26",
+    year: "2026",
     dayLabelKey: "greeting.days.saturday" as const,
     monthLabelKey: "greeting.months.march" as const,
     yearLabelKey: "greeting.years.year" as const,
@@ -102,7 +102,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
             {/* 4. Content */}
             <section
                 ref={contentRef}
-                className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#064E56] bg-[#EBE2DC] overflow-hidden flex flex-col justify-between"
+                className="relative z-10 min-h-screen pt-24 px-6 mt-[100vh] text-[#366998] bg-white overflow-hidden flex flex-col justify-between"
             >
                 {/* Top Flower Frame */}
                 <motion.div
@@ -127,71 +127,68 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                 </motion.div>
 
                 {/* Bottom Flower Frame */}
-                <motion.div
-                    className="absolute bottom-0 left-0 right-0 w-full h-full z-0 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: false, amount: 0.1 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                >
+                <div className="absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none">
                     {/* Mobile Version: Centered Rose */}
-                    <motion.img
-                        src="/image/rose-bottom.png"
-                        alt="Bottom Frame Decoration"
-                        className="w-full md:hidden object-cover object-top origin-bottom absolute bottom-0 left-0"
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                            ease: "easeInOut"
-                        }}
-                    />
+                    <motion.div
+                        className="w-full md:hidden absolute bottom-0 left-0"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false, amount: 0.05 }}
+                        transition={{ duration: 0.9, ease: "easeOut" }}
+                    >
+                        <motion.img
+                            src="/image/rose-bottom.png"
+                            alt="Bottom Frame Decoration"
+                            className="w-full object-cover object-top origin-bottom"
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        />
+                    </motion.div>
 
                     {/* Desktop Version: Left Rose */}
-                    <motion.img
-                        src="/image/blue-rose-bottom-left.png"
-                        alt="Bottom Left Decoration"
+                    <motion.div
+                        className="hidden md:block absolute bottom-0 left-0"
                         style={{
-                            '--w-md': FLOWER_CONFIG.bottomRoseWidth.md,
-                            '--w-lg': FLOWER_CONFIG.bottomRoseWidth.lg,
-                            '--w-xl': FLOWER_CONFIG.bottomRoseWidth.xl,
-                            '--w-max': FLOWER_CONFIG.bottomRoseWidth.maxDesktopWidth,
+                            width: 'clamp(180px, 40vw, 450px)',
+                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset,
                             left: FLOWER_CONFIG.bottomRosePosition.leftOffset,
-                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset
-                        } as React.CSSProperties}
-                        className="hidden md:block h-auto w-[var(--w-md)] lg:w-[var(--w-lg)] xl:w-[var(--w-xl)] max-w-[var(--w-max)] object-contain object-left-bottom origin-bottom-left absolute"
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                            ease: "easeInOut"
                         }}
-                    />
+                        initial={{ opacity: 0, x: -60 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false, amount: 0.05 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                    >
+                        <motion.img
+                            src="/image/blue-rose-bottom-left.png"
+                            alt="Bottom Left Decoration"
+                            className="w-full h-auto object-contain object-left-bottom origin-bottom-left"
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                        />
+                    </motion.div>
 
                     {/* Desktop Version: Right Rose */}
-                    <motion.img
-                        src="/image/blue-rose-bottom-right.png"
-                        alt="Bottom Right Decoration"
+                    <motion.div
+                        className="hidden md:block absolute bottom-0 right-0"
                         style={{
-                            '--w-md': FLOWER_CONFIG.bottomRoseWidth.md,
-                            '--w-lg': FLOWER_CONFIG.bottomRoseWidth.lg,
-                            '--w-xl': FLOWER_CONFIG.bottomRoseWidth.xl,
-                            '--w-max': FLOWER_CONFIG.bottomRoseWidth.maxDesktopWidth,
+                            width: 'clamp(180px, 40vw, 450px)',
+                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset,
                             right: FLOWER_CONFIG.bottomRosePosition.rightOffset,
-                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset
-                        } as React.CSSProperties}
-                        className="hidden md:block h-auto w-[var(--w-md)] lg:w-[var(--w-lg)] xl:w-[var(--w-xl)] max-w-[var(--w-max)] object-contain object-right-bottom origin-bottom-right absolute"
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                            ease: "easeInOut"
                         }}
-                    />
-                </motion.div>
+                        initial={{ opacity: 0, x: 60 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false, amount: 0.05 }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.15 }}
+                    >
+                        <motion.img
+                            src="/image/blue-rose-bottom-right.png"
+                            alt="Bottom Right Decoration"
+                            className="w-full h-auto object-contain object-right-bottom origin-bottom-right"
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.3 }}
+                        />
+                    </motion.div>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -202,7 +199,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                 >
                     <div className="space-y-4">
                         <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">{t('invitation.coupleHeading')}</h2>
-                        <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
+                        <div className="w-16 h-0.5 bg-[#366998] mx-auto opacity-50"></div>
                     </div>
 
                     <p className="text-base md:text-xl leading-relaxed font-serif max-w-3xl mx-auto opacity-90 px-4">
@@ -227,26 +224,26 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 className="flex flex-col items-center space-y-6 group"
                             >
                                 <div className="relative w-56 h-72 md:w-64 md:h-80">
-                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform -rotate-3 transition-transform group-hover:-rotate-6"></div>
-                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform rotate-2 transition-transform group-hover:rotate-4"></div>
+                                    <div className="absolute inset-0 bg-[#366998]/5 rounded-t-full rounded-b-[100px] transform -rotate-3 transition-transform group-hover:-rotate-6"></div>
+                                    <div className="absolute inset-0 bg-[#366998]/5 rounded-t-full rounded-b-[100px] transform rotate-2 transition-transform group-hover:rotate-4"></div>
 
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
-                                        <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
+                                        <div className="w-full h-full bg-[#366998]/5 rounded-t-full rounded-b-[90px] border border-[#366998]/10 flex items-center justify-center overflow-hidden relative">
                                             {/* Photo Placeholder / Image */}
                                             <img
                                                 src="/image/restu.jpeg"
                                                 alt="Restu Fauzi"
                                                 className="w-full h-full object-cover"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply pointer-events-none"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#366998]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="text-center space-y-2 relative">
-                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Restu Fauzi</h3>
-                                    <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
-                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">{t('invitation.groomRole')}</p>
+                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#366998]">Restu Fauzi</h3>
+                                    <div className="inline-block border-t border-b border-[#366998]/20 py-1 px-4">
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#366998]/80">{t('invitation.groomRole')}</p>
                                     </div>
                                     <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
                                         <p className="italic font-serif">{t('invitation.sonOf')}</p>
@@ -265,26 +262,26 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 className="flex flex-col items-center space-y-6 group"
                             >
                                 <div className="relative w-56 h-72 md:w-64 md:h-80">
-                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform rotate-3 transition-transform group-hover:rotate-6"></div>
-                                    <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-full rounded-b-[100px] transform -rotate-2 transition-transform group-hover:-rotate-4"></div>
+                                    <div className="absolute inset-0 bg-[#366998]/5 rounded-t-full rounded-b-[100px] transform rotate-3 transition-transform group-hover:rotate-6"></div>
+                                    <div className="absolute inset-0 bg-[#366998]/5 rounded-t-full rounded-b-[100px] transform -rotate-2 transition-transform group-hover:-rotate-4"></div>
 
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
-                                        <div className="w-full h-full bg-[#064E56]/5 rounded-t-full rounded-b-[90px] border border-[#064E56]/10 flex items-center justify-center overflow-hidden relative">
+                                        <div className="w-full h-full bg-[#366998]/5 rounded-t-full rounded-b-[90px] border border-[#366998]/10 flex items-center justify-center overflow-hidden relative">
                                             {/* Photo Placeholder / Image */}
                                             <img
                                                 src="/image/tania.jpeg"
                                                 alt="Tanya Apriska"
                                                 className="w-full h-full object-cover"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#064E56]/10 mix-blend-multiply pointer-events-none"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#366998]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="text-center space-y-2 relative">
-                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#064E56]">Tanya Apriska Putri</h3>
-                                    <div className="inline-block border-t border-b border-[#064E56]/20 py-1 px-4">
-                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#064E56]/80">{t('invitation.brideRole')}</p>
+                                    <h3 className="font-whispering text-4xl md:text-6xl text-[#366998]">Tanya Apriska Putri</h3>
+                                    <div className="inline-block border-t border-b border-[#366998]/20 py-1 px-4">
+                                        <p className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-[#366998]/80">{t('invitation.brideRole')}</p>
                                     </div>
                                     <div className="pt-4 text-xs md:text-sm opacity-80 leading-relaxed">
                                         <p className="italic font-serif">{t('invitation.daughterOf')}</p>
@@ -306,7 +303,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                             className="space-y-4"
                         >
                             <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold">{t('events.title')}</h2>
-                            <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
+                            <div className="w-16 h-0.5 bg-[#366998] mx-auto opacity-50"></div>
                         </motion.div>
 
                         <div className="grid md:grid-cols-2 gap-16 md:gap-12 text-center max-w-4xl mx-auto px-4">
@@ -318,37 +315,37 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 transition={{ duration: 0.8 }}
                                 className="relative group"
                             >
-                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-3 scale-105 transition-transform group-hover:rotate-6"></div>
-                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-2 scale-105 transition-transform group-hover:-rotate-4"></div>
+                                <div className="absolute inset-0 bg-[#366998]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-3 scale-105 transition-transform group-hover:rotate-6"></div>
+                                <div className="absolute inset-0 bg-[#366998]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-2 scale-105 transition-transform group-hover:-rotate-4"></div>
 
-                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#064E56]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
-                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#064E56]/5 to-transparent"></div>
+                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#366998]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#366998]/5 to-transparent"></div>
 
-                                    <div className="relative h-full border border-[#064E56]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
+                                    <div className="relative h-full border border-[#366998]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
 
 
                                         <div className="mt-8 space-y-2">
-                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">{t('events.akad')}</h3>
-                                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#366998]">{t('events.akad')}</h3>
+                                            <div className="w-12 h-[1px] bg-[#366998] mx-auto opacity-30"></div>
                                         </div>
 
                                         <div className="py-8 space-y-4">
                                             <div className="font-serif">
-                                                <p className="text-lg font-bold text-[#064E56]">{t('events.day.saturday')}</p>
+                                                <p className="text-lg font-bold text-[#366998]">{t('events.day.saturday')}</p>
                                                 <div className="flex items-center justify-center gap-4 my-2">
-                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <div className="h-[1px] w-8 bg-[#366998]/30"></div>
                                                     <p className="text-3xl font-bold font-serif">28</p>
-                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <div className="h-[1px] w-8 bg-[#366998]/30"></div>
                                                 </div>
-                                                <p className="text-lg text-[#064E56]">{t('events.month.march')}</p>
+                                                <p className="text-lg text-[#366998]">{t('events.month.march')}</p>
                                             </div>
-                                            <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
+                                            <div className="inline-block px-4 py-1.5 bg-[#366998]/10 rounded-full border border-[#366998]/10">
                                                 <p className="text-xs uppercase tracking-widest font-bold">{t('events.time.akad')}</p>
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">{t('events.venueLabel')}</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#366998]/80">{t('events.venueLabel')}</p>
                                             <p className="font-serif italic text-lg leading-snug">{t('events.venueName')}</p>
                                             <p className="text-xs opacity-70">{t('events.venueLocation')}</p>
                                         </div>
@@ -364,37 +361,37 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="relative group"
                             >
-                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-3 scale-105 transition-transform group-hover:-rotate-6"></div>
-                                <div className="absolute inset-0 bg-[#064E56]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-2 scale-105 transition-transform group-hover:rotate-4"></div>
+                                <div className="absolute inset-0 bg-[#366998]/5 rounded-t-[100px] rounded-b-[20px] transform -rotate-3 scale-105 transition-transform group-hover:-rotate-6"></div>
+                                <div className="absolute inset-0 bg-[#366998]/5 rounded-t-[100px] rounded-b-[20px] transform rotate-2 scale-105 transition-transform group-hover:rotate-4"></div>
 
-                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#064E56]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
-                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#064E56]/5 to-transparent"></div>
+                                <div className="relative h-full bg-white/60 backdrop-blur-md border border-[#366998]/20 rounded-t-[100px] rounded-b-[20px] p-2 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-500">
+                                    <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#366998]/5 to-transparent"></div>
 
-                                    <div className="relative h-full border border-[#064E56]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
+                                    <div className="relative h-full border border-[#366998]/30 rounded-t-[92px] rounded-b-[14px] p-6 pb-10 flex flex-col justify-between group-hover:bg-white/40 transition-colors">
 
 
                                         <div className="mt-8 space-y-2">
-                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#064E56]">{t('events.reception')}</h3>
-                                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
+                                            <h3 className="font-whispering text-4xl md:text-5xl text-[#366998]">{t('events.reception')}</h3>
+                                            <div className="w-12 h-[1px] bg-[#366998] mx-auto opacity-30"></div>
                                         </div>
 
                                         <div className="py-8 space-y-4">
                                             <div className="font-serif">
-                                                <p className="text-lg font-bold text-[#064E56]">{t('events.day.sunday')}</p>
+                                                <p className="text-lg font-bold text-[#366998]">{t('events.day.sunday')}</p>
                                                 <div className="flex items-center justify-center gap-4 my-2">
-                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <div className="h-[1px] w-8 bg-[#366998]/30"></div>
                                                     <p className="text-3xl font-bold font-serif">29</p>
-                                                    <div className="h-[1px] w-8 bg-[#064E56]/30"></div>
+                                                    <div className="h-[1px] w-8 bg-[#366998]/30"></div>
                                                 </div>
-                                                <p className="text-lg text-[#064E56]">{t('events.month.march')}</p>
+                                                <p className="text-lg text-[#366998]">{t('events.month.march')}</p>
                                             </div>
-                                            <div className="inline-block px-4 py-1.5 bg-[#064E56]/10 rounded-full border border-[#064E56]/10">
+                                            <div className="inline-block px-4 py-1.5 bg-[#366998]/10 rounded-full border border-[#366998]/10">
                                                 <p className="text-xs uppercase tracking-widest font-bold">{t('events.time.reception')}</p>
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-[#064E56]/80">{t('events.venueLabel')}</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-[#366998]/80">{t('events.venueLabel')}</p>
                                             <p className="font-serif italic text-lg leading-snug">{t('events.venueName')}</p>
                                             <p className="text-xs opacity-70">{t('events.venueLocation')}</p>
                                         </div>
@@ -430,7 +427,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                 href="https://maps.app.goo.gl/qgYMYWfNiK8ZjiLC9?g_st=ac"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative px-8 py-3 md:px-10 md:py-4 bg-[#064E56] text-[#EBE2DC] rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
+                                className="group relative px-8 py-3 md:px-10 md:py-4 bg-[#366998] text-[#EBE2DC] rounded-full overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105 active:scale-95"
                             >
                                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                 <span className="relative z-10 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold flex items-center gap-2 md:gap-3">
@@ -523,7 +520,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true, margin: "-50px" }} // Changed to once: true
-                                    className="relative z-10 border border-[#064E56]/30 px-6 py-2 rounded-full bg-[#EBE2DC]/50 backdrop-blur-sm mx-auto inline-block"
+                                    className="relative z-10 border border-[#366998]/30 px-6 py-2 rounded-full bg-white/50 backdrop-blur-sm mx-auto inline-block"
                                 >
                                     <span className="text-sm tracking-widest uppercase opacity-70">{t('footer.specialFor')} </span>
                                     <span className="font-serif italic text-lg ml-1">{guestName}</span>
@@ -537,9 +534,9 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="pb-40 pt-12 text-[#064E56]/60 text-xs tracking-widest flex flex-col items-center gap-2"
+                        className="pb-40 pt-12 text-[#366998]/60 text-xs tracking-widest flex flex-col items-center gap-2"
                     >
-                        <div className="w-8 h-[1px] bg-[#064E56]/30 my-4"></div>
+                        <div className="w-8 h-[1px] bg-[#366998]/30 my-4"></div>
                         <p className="font-serif italic opacity-80">
                             {t('footer.craftedWith')} <span className="text-red-800/60">♥</span> {t('footer.by')} <span className="font-bold">Tania & Restu</span>
                         </p>

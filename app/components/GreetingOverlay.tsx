@@ -121,59 +121,44 @@ export default function GreetingOverlay({ onOpen, guestName, weddingDate }: Gree
                 className="relative z-10 text-center space-y-6 p-6"
                 variants={containerVariants}
             >
-                <motion.div variants={itemVariants} className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#064E56] font-medium opacity-80">
+                <motion.div variants={itemVariants} className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#366998] font-medium opacity-80">
                     {t('greeting.title')}
                 </motion.div>
 
                 <div className="flex flex-col items-center gap-2 py-4">
                     <motion.h1
                         variants={nameVariants}
-                        className="font-whispering text-5xl md:text-7xl text-[#064E56] leading-none font-bold pr-11"
+                        className="font-whispering text-5xl md:text-7xl text-[#366998] leading-none font-bold pr-11"
                     >
                         Tanya
                     </motion.h1>
                     <motion.span
                         variants={itemVariants}
-                        className="font-whispering text-xl text-[#064E56] italic font-bold"
+                        className="font-whispering text-xl text-[#366998] italic font-bold"
                     >
                         &
                     </motion.span>
                     <motion.h1
                         variants={nameVariants}
-                        className="font-whispering text-5xl md:text-7xl text-[#064E56] leading-none font-bold pl-16"
+                        className="font-whispering text-5xl md:text-7xl text-[#366998] leading-none font-bold pl-16"
                     >
                         Restu
                     </motion.h1>
                 </div>
 
-                <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 md:gap-6 text-[#064E56] my-6">
-                    <div className="flex flex-col items-center">
-                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.dayLabelKey as any)}</span>
-                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.day}</span>
-                    </div>
-
-                    <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
-
-                    <div className="flex flex-col items-center">
-                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.monthLabelKey as any)}</span>
-                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.month}</span>
-                    </div>
-
-                    <div className="h-10 md:h-12 w-[1px] bg-[#064E56]/40 rotate-[15deg]"></div>
-
-                    <div className="flex flex-col items-center">
-                        <span className={`${weddingDate.labelFontSize} uppercase tracking-[0.4em] font-sans font-medium opacity-60 mb-4 pl-1`}>{t(weddingDate.yearLabelKey as any)}</span>
-                        <span className={`font-whispering ${weddingDate.numberFontSize} font-bold`}>{weddingDate.year}</span>
-                    </div>
+                <motion.div variants={itemVariants} className="flex items-center justify-center text-[#366998] my-6">
+                    <span className="font-sans text-xs md:text-sm font-bold uppercase tracking-[0.3em] opacity-80">
+                        {weddingDate.day} {t(weddingDate.monthLabelKey as any)} {weddingDate.year}
+                    </span>
                 </motion.div>
 
                 <div className="mt-8 mb-4">
                     {guestName ? (
                         <motion.div variants={itemVariants} className="flex flex-col items-center">
-                            <div className="text-xs md:text-sm font-serif italic text-[#064E56]/80 mb-2">
+                            <div className="text-xs md:text-sm font-serif italic text-[#366998]/80 mb-2">
                                 {t('greeting.specialFor')}
                             </div>
-                            <div className="text-2xl md:text-3xl font-serif text-[#064E56]">
+                            <div className="text-2xl md:text-3xl font-serif text-[#366998]">
                                 {guestName}
                             </div>
                         </motion.div>
@@ -187,7 +172,7 @@ export default function GreetingOverlay({ onOpen, guestName, weddingDate }: Gree
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-3 bg-[#064E56] text-[#f7f3ee] text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full cursor-pointer hover:bg-[#04363d] transition-all shadow-lg hover:shadow-xl shadow-[#064E56]/20 relative overflow-hidden group"
+                    className="px-8 py-3 bg-[#366998] text-[#f7f3ee] text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full cursor-pointer hover:bg-[#04363d] transition-all shadow-lg hover:shadow-xl shadow-[#366998]/20 relative overflow-hidden group"
                 >
                     <span className="relative z-10 flex items-center gap-2">
                         {t('greeting.open')}

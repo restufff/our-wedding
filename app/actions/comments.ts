@@ -37,13 +37,26 @@ export async function getComments(): Promise<Comment[]> {
 }
 
 export async function submitComment(prevState: any, formData: FormData) {
-    const name = formData.get("name") as string;
-    const message = formData.get("message") as string;
+    // Basic sanitization: Remove HTML tags to prevent XSS
+    const sanitize = (text: string) => text.replace(/<[^>]*>?/gm, '').trim();
+
+    const name = sanitize(formData.get("name") as string || "");
+    const message = sanitize(formData.get("message") as string || "");
     const status = formData.get("status") as "Hadir" | "Tidak Hadir" | "Mungkin";
 
     if (!name || !message || !status) {
         return { message: "Please fill in all fields" };
     }
+
+    const ALLOWED_STATUSES = ["Hadir", "Tidak Hadir", "Mungkin"];
+    if (!ALLOWED_STATUSES.includes(status)) {
+        return { message: "Invalid attendance status" };
+    }
+
+    if (message.length > 200) {
+        return { message: "Message is too long (max 200 characters)" };
+    }
+
 
     try {
         const { error } = await supabase

@@ -6,24 +6,43 @@ const whispering = localFont({
   variable: "--font-whispering",
 });
 
+export const viewport = {
+  themeColor: "#366998",
+};
+
 export const metadata = {
   metadataBase: new URL("https://tr-invitation.my.id"),
-  title: "The Wedding of Restu & Tanya",
-  description: "We invite you to share in our joy at our wedding ceremony.",
+  title: "The Wedding of Restu & Tanya — 28 Maret 2026",
+  description:
+    "Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir dan berbagi kebahagiaan di hari pernikahan kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
+  keywords: [
+    "undangan pernikahan",
+    "wedding invitation",
+    "Restu Fauzi",
+    "Tanya Apriska Putri",
+    "pernikahan 2026",
+    "28 Maret 2026",
+    "Bengkulu",
+    "Seluma",
+  ],
+  authors: [{ name: "Restu & Tanya" }],
+  robots: "index, follow",
   icons: {
     icon: "/image/fingerprint.png",
   },
   openGraph: {
-    title: "The Wedding of Restu & Tanya",
-    description: "We invite you to share in our joy at our wedding ceremony.",
+    title: "The Wedding of Restu & Tanya ✨",
+    description:
+      "Kami mengundang Anda untuk hadir dan berbagi kebahagiaan di hari istimewa kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
     url: "https://tr-invitation.my.id",
-    siteName: "Restu & Tanya Wedding",
+    siteName: "Undangan Pernikahan Restu & Tanya",
     images: [
       {
         url: "/image/metatag.png",
         width: 1200,
         height: 630,
-        alt: "Restu & Tanya Wedding Invitation",
+        alt: "Undangan Pernikahan Restu & Tanya — 28 Maret 2026",
+        type: "image/png",
       },
     ],
     locale: "id_ID",
@@ -31,8 +50,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Wedding of Restu & Tanya",
-    description: "We invite you to share in our joy at our wedding ceremony.",
+    title: "The Wedding of Restu & Tanya ✨",
+    description:
+      "Kami mengundang Anda untuk hadir dan berbagi kebahagiaan di hari istimewa kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
     images: ["/image/metatag.png"],
   },
 };

@@ -70,7 +70,7 @@ export default function CalendarCountdown() {
                     <span
                         className={`relative z-10 w-8 h-8 flex items-center justify-center rounded-full text-sm font-serif transition-colors ${isWeddingDay
                             ? "text-[#EBE2DC] font-bold"
-                            : "text-[#064E56]/70 group-hover:bg-[#064E56]/5"
+                            : "text-[#366998]/70 group-hover:bg-[#366998]/5"
                             }`}
                     >
                         {i}
@@ -86,23 +86,23 @@ export default function CalendarCountdown() {
             {/* Calendar Card */}
             <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-[2rem] p-6 md:p-8 shadow-2xl relative overflow-hidden">
                 {/* Decorative Blur */}
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#064E56]/5 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#064E56]/5 rounded-full blur-3xl"></div>
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#366998]/5 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#366998]/5 rounded-full blur-3xl"></div>
 
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8 relative z-10">
-                    <h3 className="font-whispering text-3xl md:text-4xl text-[#064E56] mb-1">{t('greeting.months.march')}</h3>
+                    <h3 className="font-whispering text-3xl md:text-4xl text-[#366998] mb-1">{t('greeting.months.march')}</h3>
                     <div className="flex items-center justify-center gap-3">
-                        <div className="h-[1px] w-6 md:w-8 bg-[#064E56]/30"></div>
+                        <div className="h-[1px] w-6 md:w-8 bg-[#366998]/30"></div>
                         <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] opacity-60 font-bold">2026</p>
-                        <div className="h-[1px] w-6 md:w-8 bg-[#064E56]/30"></div>
+                        <div className="h-[1px] w-6 md:w-8 bg-[#366998]/30"></div>
                     </div>
                 </div>
 
                 {/* Days Header */}
                 <div className="grid grid-cols-7 text-center mb-2 md:mb-4">
                     {['M', 'S', 'S', 'R', 'K', 'J', 'S'].map((day, index) => (
-                        <div key={`${day}-${index}`} className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-40 text-[#064E56]">
+                        <div key={`${day}-${index}`} className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-40 text-[#366998]">
                             {day}
                         </div>
                     ))}
@@ -114,10 +114,10 @@ export default function CalendarCountdown() {
                 </div>
 
                 {/* Divider */}
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#064E56]/20 to-transparent mb-6 md:mb-8"></div>
+                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#366998]/20 to-transparent mb-6 md:mb-8"></div>
 
                 {/* Countdown Timer */}
-                <div className="grid grid-cols-4 gap-1 md:gap-2 text-center text-[#064E56]">
+                <div className="grid grid-cols-4 gap-1 md:gap-2 text-center text-[#366998]">
                     <div className="flex flex-col items-center">
                         <span className="text-xl md:text-2xl font-serif font-bold tabular-nums leading-none">
                             {timeLeft.days}
@@ -193,7 +193,7 @@ END:VCALENDAR`;
                                 window.open(googleUrl, '_blank');
                             }
                         }}
-                        className="px-6 py-3 bg-[#064E56] text-[#EBE2DC] rounded-full text-xs uppercase tracking-widest font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
+                        className="px-6 py-3 bg-[#366998] text-[#EBE2DC] rounded-full text-xs uppercase tracking-widest font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /><path d="M16 18h.01" /></svg>
                         {t('countdown.addToCalendar')}

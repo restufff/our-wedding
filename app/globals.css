@@ -18,6 +18,7 @@ body {
 
 .font-whispering {
   font-family: var(--font-whispering);
+  font-weight: bold;
 }
 
 

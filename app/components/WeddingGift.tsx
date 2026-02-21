@@ -58,9 +58,9 @@ export default function WeddingGift() {
     return (
         <div className="w-full max-w-4xl mx-auto px-4 mt-16 md:mt-24 mb-16">
             <div className="text-center space-y-4 mb-12">
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">{t('gift.title')}</h2>
-                <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
-                <p className="text-sm md:text-base font-serif opacity-80 text-[#064E56] max-w-lg mx-auto">
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#366998]">{t('gift.title')}</h2>
+                <div className="w-16 h-0.5 bg-[#366998] mx-auto opacity-50"></div>
+                <p className="text-sm md:text-base font-serif opacity-80 text-[#366998] max-w-lg mx-auto">
                     {t('gift.description')}
                 </p>
             </div>
@@ -117,7 +117,7 @@ export default function WeddingGift() {
                             </div>
 
                             {/* Footer: Name & Mastercard Logo */}
-                            <div className="flex justify-between items-end mt-80px pb-1 md:pb-0">
+                            <div className="flex justify-between items-end mt-auto pb-1 md:pb-0">
                                 <div className="uppercase tracking-widest font-medium text-sm md:text-base drop-shadow-md text-[#FFFFF0]">
                                     {account.name}
                                 </div>

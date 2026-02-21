@@ -22,6 +22,17 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
     const [message, setMessage] = useState("");
     const [status, setStatus] = useState<"Hadir" | "Tidak Hadir" | "Mungkin">("Hadir");
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+    const [msgTouched, setMsgTouched] = useState(false);
+
+    const MAX_CHARS = 200;
+    const MIN_CHARS = 5;
+    const XSS_PATTERN = /<[a-z]|javascript:|on\w+=/i;
+    const msgLength = message.length;
+    const msgTrimmed = message.trim();
+    const isMsgTooShort = msgTrimmed.length < MIN_CHARS;
+    const isMsgTooLong = msgLength > MAX_CHARS;
+    const hasXssPattern = XSS_PATTERN.test(message);
+    const isFormInvalid = isMsgTooShort || isMsgTooLong || hasXssPattern;
 
     // Fetch comments on mount
     useEffect(() => {
@@ -35,6 +46,15 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Honeypot check
+        const honeypotData = new FormData(e.target as HTMLFormElement);
+        if (honeypotData.get("website")) {
+            console.warn("Bot detected via honeypot");
+            setFeedback({ type: 'success', text: t('comments.successMsg') }); // Silent fail for bots
+            return;
+        }
+
         setIsSubmitting(true);
         setFeedback(null);
 
@@ -65,9 +85,9 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
 
             {/* Section Header */}
             <div className="relative z-20 text-center mb-10 space-y-2">
-                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#064E56]">{t('comments.title')}</h2>
-                <div className="w-16 h-0.5 bg-[#064E56] mx-auto opacity-50"></div>
-                <h3 className="font-whispering text-3xl md:text-5xl text-[#064E56] mt-2">{t('comments.subtitle')}</h3>
+                <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] font-bold text-[#366998]">{t('comments.title')}</h2>
+                <div className="w-16 h-0.5 bg-[#366998] mx-auto opacity-50"></div>
+                <h3 className="font-whispering text-3xl md:text-5xl text-[#366998] mt-2">{t('comments.subtitle')}</h3>
             </div>
 
             {/* Comment Form with Angel & Stitch Sitting on Top */}
@@ -119,16 +139,16 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Name Field (Locked) */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.nameLabel')}</label>
-                            <div className="flex items-center gap-3 bg-white/30 rounded-lg px-4 py-3 border border-[#064E56]/5 cursor-not-allowed opacity-80">
-                                <User size={18} className="text-[#064E56]" />
-                                <span className="font-serif font-bold text-[#064E56]">{finalGuestName}</span>
+                            <label className="text-xs uppercase tracking-widest text-[#366998]/70 font-bold ml-1">{t('comments.nameLabel')}</label>
+                            <div className="flex items-center gap-3 bg-white/30 rounded-lg px-4 py-3 border border-[#366998]/5 cursor-not-allowed opacity-80">
+                                <User size={18} className="text-[#366998]" />
+                                <span className="font-serif font-bold text-[#366998]">{finalGuestName}</span>
                             </div>
                         </div>
 
                         {/* RSVP Status */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.attendanceLabel')}</label>
+                            <label className="text-xs uppercase tracking-widest text-[#366998]/70 font-bold ml-1">{t('comments.attendanceLabel')}</label>
                             <div className="grid grid-cols-3 gap-2">
                                 {(["Hadir", "Mungkin", "Tidak Hadir"] as const).map((option) => {
                                     const label = option === "Hadir" ? t('comments.attendance.present') : option === "Mungkin" ? t('comments.attendance.maybe') : t('comments.attendance.absent');
@@ -138,8 +158,8 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                                             type="button"
                                             onClick={() => setStatus(option)}
                                             className={`relative py-2 px-1 rounded-lg text-xs font-bold transition-all border ${status === option
-                                                ? "bg-[#064E56] text-white border-[#064E56]"
-                                                : "bg-white/30 text-[#064E56] border-[#064E56]/10 hover:bg-[#064E56]/5"
+                                                ? "bg-[#366998] text-white border-[#366998]"
+                                                : "bg-white/30 text-[#366998] border-[#366998]/10 hover:bg-[#366998]/5"
                                                 }`}
                                         >
                                             {label}
@@ -148,7 +168,7 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                                                     layoutId="status-indicator"
                                                     className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center"
                                                 >
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-[#064E56]" />
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-[#366998]" />
                                                 </motion.div>
                                             )}
                                         </button>
@@ -159,24 +179,55 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
 
                         {/* Message Area */}
                         <div className="space-y-1">
-                            <label className="text-xs uppercase tracking-widest text-[#064E56]/70 font-bold ml-1">{t('comments.messageLabel')}</label>
+                            <label className="text-xs uppercase tracking-widest text-[#366998]/70 font-bold ml-1">{t('comments.messageLabel')}</label>
                             <div className="relative">
                                 <textarea
                                     value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
+                                    onChange={(e) => { setMessage(e.target.value); setMsgTouched(true); }}
+                                    onBlur={() => setMsgTouched(true)}
                                     placeholder={t('comments.messagePlaceholder')}
-                                    className="w-full bg-white/30 border border-[#064E56]/10 rounded-lg p-4 text-sm text-[#064E56] placeholder:text-[#064E56]/40 focus:outline-none focus:ring-2 focus:ring-[#064E56]/20 min-h-[120px] resize-none backdrop-blur-sm"
-                                    required
+                                    maxLength={MAX_CHARS}
+                                    className={`w-full bg-white/30 border rounded-lg p-4 text-sm text-[#366998] placeholder:text-[#366998]/40 focus:outline-none focus:ring-2 min-h-[120px] resize-none backdrop-blur-sm transition-colors ${hasXssPattern
+                                        ? 'border-red-400 focus:ring-red-300/40'
+                                        : msgTouched && isMsgTooShort
+                                            ? 'border-amber-400 focus:ring-amber-300/40'
+                                            : 'border-[#366998]/10 focus:ring-[#366998]/20'
+                                        }`}
                                 />
-                                <MessageCircle className="absolute top-4 right-4 text-[#064E56]/20" size={20} />
+                                <MessageCircle className="absolute top-4 right-4 text-[#366998]/20" size={20} />
                             </div>
+
+                            {/* Validation hints */}
+                            <div className="flex justify-between items-start gap-2 px-1">
+                                <div className="text-[10px] leading-tight">
+                                    {hasXssPattern && (
+                                        <span className="text-red-500 font-semibold">⚠ Invalid characters detected</span>
+                                    )}
+                                    {!hasXssPattern && msgTouched && isMsgTooShort && (
+                                        <span className="text-amber-600 font-semibold">Min {MIN_CHARS} characters required</span>
+                                    )}
+                                </div>
+                                <span className={`text-[10px] font-mono shrink-0 tabular-nums ${msgLength >= MAX_CHARS - 10
+                                    ? 'text-red-500 font-bold'
+                                    : msgLength >= MAX_CHARS - 50
+                                        ? 'text-amber-500 font-semibold'
+                                        : 'text-[#366998]/40'
+                                    }`}>
+                                    {msgLength} / {MAX_CHARS}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Honeypot Field (Hidden from humans) */}
+                        <div className="hidden" aria-hidden="true">
+                            <input type="text" name="website" tabIndex={-1} autoComplete="off" />
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-[#064E56] text-white py-3 rounded-lg font-bold tracking-widest text-xs uppercase hover:bg-[#064E56]/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-[#064E56]/20"
+                            disabled={isSubmitting || isFormInvalid}
+                            className="w-full bg-[#366998] text-white py-3 rounded-lg font-bold tracking-widest text-xs uppercase hover:bg-[#366998]/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-[#366998]/20"
                         >
                             {isSubmitting ? (
                                 <span className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
@@ -210,7 +261,7 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                                                 transition={{ duration: 2, ease: "easeInOut" }}
                                                 className="absolute"
                                             >
-                                                <Send size={48} className="text-[#064E56]" fill="#064E56" />
+                                                <Send size={48} className="text-[#366998]" fill="#366998" />
                                             </motion.div>
                                             <motion.div
                                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -218,11 +269,11 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                                                 transition={{ delay: 0.5 }}
                                                 className="text-center space-y-2"
                                             >
-                                                <div className="w-12 h-12 bg-[#064E56]/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                                                    <CheckCircle className="text-[#064E56]" size={24} />
+                                                <div className="w-12 h-12 bg-[#366998]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                    <CheckCircle className="text-[#366998]" size={24} />
                                                 </div>
-                                                <p className="font-whispering text-2xl text-[#064E56]">{t('comments.successThanks')}</p>
-                                                <p className="text-xs uppercase tracking-widest text-[#064E56]/80 font-bold">{t('comments.successMsg')}</p>
+                                                <p className="font-whispering text-2xl text-[#366998]">{t('comments.successThanks')}</p>
+                                                <p className="text-xs uppercase tracking-widest text-[#366998]/80 font-bold">{t('comments.successMsg')}</p>
                                             </motion.div>
                                         </>
                                     ) : (
@@ -244,16 +295,16 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
             {/* Dedicated Marquee Section */}
             <div className="relative z-10 w-full max-w-4xl mx-auto mt-8">
                 <div className="text-center mb-6 space-y-2">
-                    <h3 className="font-whispering text-2xl md:text-3xl text-[#064E56]">{t('comments.recentTitle')}</h3>
-                    <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-30"></div>
+                    <h3 className="font-whispering text-2xl md:text-3xl text-[#366998]">{t('comments.recentTitle')}</h3>
+                    <div className="w-12 h-[1px] bg-[#366998] mx-auto opacity-30"></div>
                 </div>
 
-                <div className="bg-white/30 backdrop-blur-md rounded-2xl border border-white/40 p-4 md:p-6 h-[400px] overflow-hidden relative shadow-inner flex items-center justify-center">
+                <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl border border-slate-100 p-4 md:p-6 h-[400px] overflow-hidden relative shadow-[0_8px_40px_-8px_rgba(54,105,152,0.12)] flex items-center justify-center">
                     {comments.length > 0 ? (
                         <>
                             {/* Mask gradients */}
-                            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
-                            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#EBE2DC]/50 to-transparent z-10 pointer-events-none"></div>
+                            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-3xl"></div>
+                            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-50 to-transparent z-10 pointer-events-none rounded-b-3xl"></div>
 
                             <div className="flex justify-between px-2 md:px-4 h-full gap-2 md:gap-4 w-full">
                                 {/* Left Column (Scrolling Up) */}
@@ -274,11 +325,11 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                             transition={{ duration: 0.8, ease: "easeOut" }}
                             className="text-center flex flex-col items-center gap-4"
                         >
-                            <MessageCircle size={48} className="text-[#064E56]/30 mb-2" />
-                            <p className="font-whispering text-3xl md:text-5xl text-[#064E56] opacity-80">
+                            <MessageCircle size={48} className="text-[#366998]/30 mb-2" />
+                            <p className="font-whispering text-3xl md:text-5xl text-[#366998] opacity-80">
                                 {t('comments.emptyState')}
                             </p>
-                            <div className="w-12 h-[1px] bg-[#064E56] mx-auto opacity-20 mt-2"></div>
+                            <div className="w-12 h-[1px] bg-[#366998] mx-auto opacity-20 mt-2"></div>
                         </motion.div>
                     )}
                 </div>
@@ -322,20 +373,20 @@ function MarqueeColumn({ comments, direction, duration }: { comments: Comment[],
         >
             {displayComments.map((comment, i) => (
                 <div key={`${comment.id}-${i}`} className="px-2">
-                    <div className="bg-white/40 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/50 shadow-md shadow-[#064E56]/5 text-[#064E56] relative overflow-hidden group hover:bg-white/60 transition-colors">
+                    <div className="bg-white/40 backdrop-blur-md p-4 md:p-5 rounded-2xl border border-white/50 shadow-md shadow-[#366998]/5 text-[#366998] relative overflow-hidden group hover:bg-white/60 transition-colors">
                         {/* Decorative side accent */}
-                        <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#064E56]/40 to-transparent"></div>
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#366998]/40 to-transparent"></div>
 
-                        <div className="flex justify-between items-center mb-3 gap-2">
-                            <span className="font-bold block text-xs md:text-sm tracking-wide">{comment.name}</span>
-                            <span className={`shrink-0 text-[8px] md:text-[9px] uppercase px-2 md:px-3 py-1 rounded-full font-bold opacity-90 whitespace-nowrap tracking-wider text-center border shadow-sm ${comment.status === 'Hadir' ? 'text-[#064E56] bg-green-100/80 border-green-200/50' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/80 border-red-200/50' : 'text-amber-800 bg-amber-100/80 border-amber-200/50'}`}>
+                        <div className="flex flex-wrap items-center mb-3 gap-x-2 gap-y-1">
+                            <span className="font-bold text-xs md:text-sm tracking-wide">{comment.name}</span>
+                            <span className={`shrink-0 text-[8px] md:text-[9px] uppercase px-2 md:px-3 py-1 rounded-full font-bold opacity-90 whitespace-nowrap tracking-wider text-center border shadow-sm ${comment.status === 'Hadir' ? 'text-[#366998] bg-green-100/80 border-green-200/50' : comment.status === 'Tidak Hadir' ? 'text-red-800 bg-red-100/80 border-red-200/50' : 'text-amber-800 bg-amber-100/80 border-amber-200/50'}`}>
                                 {comment.status}
                             </span>
                         </div>
 
                         <div className="relative pt-1 pl-1">
                             {/* Decorative Quote Mark */}
-                            <span className="absolute -top-3 -left-1 text-4xl text-[#064E56] opacity-15 select-none leading-none font-serif">"</span>
+                            <span className="absolute -top-3 -left-1 text-4xl text-[#366998] opacity-15 select-none leading-none font-serif">"</span>
                             <p style={{ fontFamily: "var(--font-alegreya)" }} className="opacity-90 leading-relaxed italic text-xs md:text-sm break-words relative z-10">
                                 {comment.message}
                             </p>

@@ -14,24 +14,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const decodedName = decodeURIComponent(guestName).replace(/-/g, " ");
 
     return {
-        title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
-        description: "We invite you to share in our joy at our wedding ceremony.",
+        title: `Undangan Pernikahan Restu & Tanya — Untuk ${decodedName} 💌`,
+        description: `${decodedName}, kami dengan penuh kebahagiaan mengundang Anda untuk hadir dan berbagi kebahagiaan di hari pernikahan kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.`,
         openGraph: {
-            title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
-            description: "We invite you to share in our joy at our wedding ceremony.",
+            title: `Undangan Pernikahan Restu & Tanya ✨`,
+            description: `${decodedName}, kami mengundang Anda untuk hadir dan menjadi bagian dari hari spesial kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.`,
+            url: `https://tr-invitation.my.id/${guestName}`,
+            siteName: "Undangan Pernikahan Restu & Tanya",
             images: [
                 {
                     url: "/image/metatag.png",
                     width: 1200,
                     height: 630,
-                    alt: "Restu & Tanya Wedding Invitation",
+                    alt: "Undangan Pernikahan Restu & Tanya — 28 Maret 2026",
+                    type: "image/png",
                 },
             ],
+            locale: "id_ID",
+            type: "website",
         },
         twitter: {
             card: "summary_large_image",
-            title: `The Wedding of Restu & Tanya - Spesial Untuk ${decodedName}`,
-            description: "We invite you to share in our joy at our wedding ceremony.",
+            title: `Undangan Pernikahan Restu & Tanya ✨`,
+            description: `${decodedName}, kami mengundang Anda untuk hadir dan menjadi bagian dari hari spesial kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.`,
             images: ["/image/metatag.png"],
         },
     };

@@ -7,5 +7,19 @@ create table comments (
   status text not null
 );
 
--- 2. (Optional) Enable RLS if you want to restrict access later
--- alter table comments enable row level security;
+-- 2. Enable Row Level Security (RLS)
+alter table comments enable row level security;
+
+-- 3. Create policies
+-- Allow anyone to read comments (public access)
+create policy "Allow public read-only access"
+  on comments for select
+  using (true);
+
+-- Allow anyone to insert comments (public access)
+create policy "Allow public insert access"
+  on comments for insert
+  with check (true);
+
+-- Do NOT allow updates or deletes from the public
+-- (These will be restricted by default once RLS is enabled without specific policies)
