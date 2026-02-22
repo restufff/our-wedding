@@ -57,7 +57,7 @@ export const metadata = {
   },
 };
 
-import { Alegreya } from 'next/font/google';
+import { Alegreya, Montserrat } from 'next/font/google';
 import { LanguageProvider } from '@/app/context/LanguageContext';
 
 const alegreya = Alegreya({
@@ -66,11 +66,18 @@ const alegreya = Alegreya({
   display: 'swap',
 });
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ['700', '800'],
+  display: 'swap',
+});
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
       <body
-        className={`${whispering.variable} ${alegreya.variable}`}
+        className={`${whispering.variable} ${alegreya.variable} ${montserrat.variable}`}
         suppressHydrationWarning={true}
       >
         <LanguageProvider>
