@@ -1,0 +1,36 @@
+Reduce unused JavaScript: Est savings of 284 KiB (score:0)
+Minify CSS: Est savings of 3 KiB (score:50)
+Minify JavaScript: Est savings of 197 KiB (score:0)
+Avoid serving legacy JavaScript to modern browsers: Est savings of 9 KiB (score:50)
+Properly size images: Est savings of 7,302 KiB (score:0)
+Defer offscreen images: Est savings of 19,755 KiB (score:50)
+Minimize main-thread work: 4.9 s (score:0)
+Reduce JavaScript execution time: 2.0 s (score:0)
+---DETAILS---
+
+Eliminate render-blocking resources:
+
+Reduce unused JavaScript:
+  - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_1dd7fb
+  - http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js
+  - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js
+  - http://localhost:3000/_next/static/chunks/node_modules_05b96118._.js
+
+Reduce JavaScript execution time:
+  - http://localhost:3000/_next/static/chunks/node_modules_05b96118._.js
+  - http://localhost:3000/Dimas-Himawan
+  - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_a0e4c7b4._.js
+  - http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js
+  - Unattributable
+
+Minimize main-thread work:
+  - Script Evaluation
+  - Other
+  - Style & Layout
+  - Script Parsing & Compilation
+  - Rendering
+
+Avoids an excessive DOM size:
+  - {"statistic":"Total DOM Elements","value":{"type":"numeric","granularity":1,"value":787}}
+  - {"node":{"type":"node","lhId":"1-6-rect","path":"1,HTML,1,BODY,1,DIV,0,MAIN,2,SECTION,2,DIV,3,DIV,5,
+  - {"node":{"type":"node","lhId":"1-7-DIV","path":"1,HTML,1,BODY,1,DIV,0,MAIN,2,SECTION,2,DIV,3,DIV,4,D

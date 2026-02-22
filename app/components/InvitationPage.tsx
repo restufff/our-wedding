@@ -145,47 +145,25 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         />
                     </motion.div>
 
-                    {/* Desktop Version: Left Rose */}
+                    {/* Desktop/Tablet Version: Centered Bottom Rose (similar to top rose-up) */}
                     <motion.div
-                        className="hidden md:block absolute bottom-0 left-0"
-                        style={{
-                            width: 'clamp(180px, 40vw, 450px)',
-                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset,
-                            left: FLOWER_CONFIG.bottomRosePosition.leftOffset,
-                        }}
-                        initial={{ opacity: 0, x: -60 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.05 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="hidden md:flex absolute bottom-0 left-0 right-0 w-full z-0 pointer-events-none justify-center"
+                        initial={{ y: 100, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: false, amount: 0.1 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
                     >
                         <motion.img
-                            src="/image/blue-rose-bottom-left.png"
-                            alt="Bottom Left Decoration"
-                            className="w-full h-auto object-contain object-left-bottom origin-bottom-left"
-                            animate={{ y: [0, 10, 0] }}
-                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                        />
-                    </motion.div>
-
-                    {/* Desktop Version: Right Rose */}
-                    <motion.div
-                        className="hidden md:block absolute bottom-0 right-0"
-                        style={{
-                            width: 'clamp(180px, 40vw, 450px)',
-                            bottom: FLOWER_CONFIG.bottomRosePosition.bottomOffset,
-                            right: FLOWER_CONFIG.bottomRosePosition.rightOffset,
-                        }}
-                        initial={{ opacity: 0, x: 60 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.05 }}
-                        transition={{ duration: 1, ease: "easeOut", delay: 0.15 }}
-                    >
-                        <motion.img
-                            src="/image/blue-rose-bottom-right.png"
-                            alt="Bottom Right Decoration"
-                            className="w-full h-auto object-contain object-right-bottom origin-bottom-right"
-                            animate={{ y: [0, 10, 0] }}
-                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.3 }}
+                            src="/image/rose-up-bottom-dekstop.png"
+                            alt="Bottom Frame Decoration"
+                            className="w-full md:w-[60%] lg:w-[40%] object-contain origin-bottom -mb-3 md:-mb-10 lg:-mb-14 scale-110"
+                            animate={{ y: [10, 0, 10] }}
+                            transition={{
+                                duration: 5,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                                ease: "easeInOut"
+                            }}
                         />
                     </motion.div>
                 </div>
@@ -534,7 +512,7 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="pb-40 pt-12 text-[#366998]/60 text-xs tracking-widest flex flex-col items-center gap-2"
+                        className="pb-40 md:pb-72 lg:pb-80 pt-12 text-[#366998] text-xs tracking-widest flex flex-col items-center gap-2 relative z-20"
                     >
                         <div className="w-8 h-[1px] bg-[#366998]/30 my-4"></div>
                         <p className="font-serif italic opacity-80">

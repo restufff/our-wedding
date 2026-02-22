@@ -63,20 +63,32 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
         formData.append("message", message);
         formData.append("status", status);
 
+        // Optimistic update — instantly show the new comment
+        const optimisticComment: Comment = {
+            id: `temp-${Date.now()}`,
+            name: finalGuestName,
+            message: message,
+            status: status,
+            createdAt: new Date().toISOString(),
+        };
+        setComments((prev) => [optimisticComment, ...prev]);
+
         const result = await submitComment(null, formData);
 
         if (result.success) {
             setFeedback({ type: 'success', text: t('comments.successMsg') });
             setMessage("");
-            // Refresh comments (optimistic update would be better, but fetching is safe)
+            // Re-fetch to sync with server data (replaces optimistic entry with real one)
             const updated = await getComments();
             setComments(updated);
         } else {
+            // Remove the optimistic comment on failure
+            setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
             setFeedback({ type: 'error', text: result.message || t('comments.errorMsg') });
         }
         setIsSubmitting(false);
 
-        // Clear feedback after 3 seconds
+        // Clear feedback after 5 seconds
         setTimeout(() => setFeedback(null), 5000);
     };
 
