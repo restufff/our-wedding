@@ -5,39 +5,17 @@ import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
 import { useLanguage } from "@/app/context/LanguageContext";
 
-/* ──────────────────────────────────────────────
-   Plain text bank logo — no background/border
-   BCA → Montserrat (BCA Sans alternative)
-   BRI → sans-serif
-   ────────────────────────────────────────────── */
-function BankLogo({ name, variant }: { name: string; variant: "gold" | "dark" }) {
-    return (
-        <span
-            className={`text-xl sm:text-xl md:text-2xl font-extrabold tracking-[0.2em] text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] select-none ${variant === "gold" ? "italic" : ""
-                }`}
-            style={{
-                fontFamily:
-                    variant === "gold"
-                        ? "var(--font-montserrat), 'Montserrat', sans-serif"
-                        : "'Arial', 'Helvetica Neue', sans-serif",
-            }}
-        >
-            {name}
-        </span>
-    );
-}
-
 
 /* ──────────────────────────────────────────────
    Pure-CSS Mastercard icon (two overlapping circles)
    ────────────────────────────────────────────── */
 function MastercardIcon() {
     return (
-        <div className="relative flex items-center h-7 sm:h-8 md:h-10 select-none" aria-label="Mastercard">
+        <div className="relative flex items-center h-8 sm:h-9 md:h-11 select-none" aria-label="Mastercard">
             {/* Red circle */}
-            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-full bg-[#EB001B] opacity-90" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full bg-[#EB001B] opacity-90" />
             {/* Orange/Yellow circle — overlaps the red */}
-            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-full bg-[#F79E1B] opacity-90 -ml-2.5 sm:-ml-3 md:-ml-4" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full bg-[#F79E1B] opacity-90 -ml-3 sm:-ml-3.5 md:-ml-4" />
         </div>
     );
 }
@@ -49,9 +27,9 @@ export default function WeddingGift() {
     const accounts = [
         {
             bank: "BCA",
+            logo: "/image/bca-new.svg",
             number: "1650329569",
             name: "Restu Fauzi",
-            variant: "gold" as const,
             gradientStyle: {
                 background: "linear-gradient(to bottom right, #AA822A, #E8C66C, #976F1D)",
                 WebkitBackground: undefined,
@@ -70,9 +48,9 @@ export default function WeddingGift() {
         },
         {
             bank: "BRI",
+            logo: "/image/bri-new.svg",
             number: "355101021430535",
             name: "Tanya Apriska Putri",
-            variant: "dark" as const,
             gradientStyle: {
                 background: "linear-gradient(to right, #1a1a1a, #0a0a0a)",
             } as React.CSSProperties,
@@ -134,16 +112,31 @@ export default function WeddingGift() {
                                 <div className="relative z-10 h-full flex flex-col justify-between font-sans p-4 xs:p-5 sm:p-4 md:p-5 lg:p-6">
                                     {/* Top row — Bank logo */}
                                     <div className="flex justify-end">
-                                        <BankLogo name={account.bank} variant={account.variant} />
+                                        <img
+                                            src={account.logo}
+                                            alt={account.bank}
+                                            style={{ height: 28, width: "auto", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
+                                        />
                                     </div>
 
                                     {/* Center — Chip + Account number */}
                                     <div className="flex flex-col gap-2 sm:gap-2.5 md:gap-3 my-auto">
                                         {/* EMV Chip (pure CSS) */}
-                                        <div className="w-10 h-7 sm:w-10 sm:h-7 md:w-12 md:h-9 bg-gradient-to-tr from-[#d4af37] to-[#fcf6ba] rounded-md relative overflow-hidden shadow-sm border border-[#b38728]/50">
-                                            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-black/20" />
-                                            <div className="absolute left-1/2 top-0 w-[1px] h-full bg-black/20" />
-                                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 border border-black/20 rounded-full" />
+                                        <div
+                                            style={{
+                                                width: 40,
+                                                height: 28,
+                                                background: "linear-gradient(to top right, #d4af37, #fcf6ba)",
+                                                borderRadius: 6,
+                                                border: "1px solid rgba(179, 135, 40, 0.5)",
+                                                position: "relative",
+                                                overflow: "hidden",
+                                                boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+                                            }}
+                                        >
+                                            <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: 1, background: "rgba(0,0,0,0.2)" }} />
+                                            <div style={{ position: "absolute", left: "50%", top: 0, width: 1, height: "100%", background: "rgba(0,0,0,0.2)" }} />
+                                            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 14, height: 14, border: "1px solid rgba(0,0,0,0.2)", borderRadius: "50%" }} />
                                         </div>
 
                                         {/* Account number + copy */}
@@ -168,15 +161,17 @@ export default function WeddingGift() {
                                         </div>
                                     </div>
 
-                                    {/* Bottom row — Name + Mastercard icon */}
-                                    <div className="flex justify-between items-end mt-auto">
+                                    {/* Bottom — Name above, Mastercard icon below */}
+                                    <div className="flex flex-col gap-1 mt-auto w-full">
                                         <div
-                                            className="uppercase tracking-wider sm:tracking-widest font-medium drop-shadow-md text-[#FFFFF0] leading-tight"
+                                            className="uppercase tracking-wider sm:tracking-widest font-medium drop-shadow-md text-[#FFFFF0] leading-tight text-left"
                                             style={{ fontSize: "clamp(0.8rem, 3.2vw, 1rem)" }}
                                         >
                                             {account.name}
                                         </div>
-                                        <MastercardIcon />
+                                        <div className="flex justify-end">
+                                            <MastercardIcon />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
