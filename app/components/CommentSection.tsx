@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, MessageCircle, CheckCircle, XCircle, HelpCircle } from "lucide-react";
 import { getComments, submitComment, type Comment } from "@/app/actions/comments";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { supabaseBrowser } from "@/lib/supabase-browser";
 
 interface CommentSectionProps {
     guestName?: string;
@@ -34,14 +35,42 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
     const hasXssPattern = XSS_PATTERN.test(message);
     const isFormInvalid = isMsgTooShort || isMsgTooLong || hasXssPattern;
 
-    // Fetch comments on mount
+    // Fetch comments on mount + subscribe to Realtime for instant cross-session updates
     useEffect(() => {
+        // Initial fetch
         const fetchComments = async () => {
             const data = await getComments();
             setComments(data);
             setLoading(false);
         };
         fetchComments();
+
+        // Subscribe to Realtime INSERT events on the comments table
+        const channel = supabaseBrowser
+            .channel('comments-realtime')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'comments' },
+                (payload) => {
+                    const newComment: Comment = {
+                        id: payload.new.id,
+                        name: payload.new.name,
+                        message: payload.new.message,
+                        status: payload.new.status,
+                        createdAt: payload.new.created_at,
+                    };
+                    setComments((prev) => {
+                        // Avoid duplicates (from optimistic update)
+                        if (prev.some((c) => c.id === newComment.id)) return prev;
+                        return [newComment, ...prev];
+                    });
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabaseBrowser.removeChannel(channel);
+        };
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -78,9 +107,8 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
         if (result.success) {
             setFeedback({ type: 'success', text: t('comments.successMsg') });
             setMessage("");
-            // Re-fetch to sync with server data (replaces optimistic entry with real one)
-            const updated = await getComments();
-            setComments(updated);
+            // Remove optimistic temp entry — Realtime will push the real comment
+            setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
         } else {
             // Remove the optimistic comment on failure
             setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
