@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
+import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 
@@ -11,7 +12,7 @@ import { useLanguage } from "@/app/context/LanguageContext";
    ────────────────────────────────────────────── */
 function MastercardIcon() {
     return (
-        <div className="relative flex items-center h-8 sm:h-9 md:h-11 select-none" aria-label="Mastercard">
+        <div className="relative flex items-center h-8 sm:h-9 md:h-11 select-none" role="img" aria-label="Mastercard">
             {/* Red circle */}
             <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full bg-[#EB001B] opacity-90" />
             {/* Orange/Yellow circle — overlaps the red */}
@@ -112,11 +113,15 @@ export default function WeddingGift() {
                                 <div className="relative z-10 h-full flex flex-col justify-between font-sans p-4 xs:p-5 sm:p-4 md:p-5 lg:p-6">
                                     {/* Top row — Bank logo */}
                                     <div className="flex justify-end">
-                                        <img
-                                            src={account.logo}
-                                            alt={account.bank}
-                                            style={{ height: 28, width: "auto", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
-                                        />
+                                        <div style={{ height: 28, position: 'relative', width: '80px' }}>
+                                            <Image
+                                                src={account.logo}
+                                                alt={account.bank}
+                                                fill
+                                                className="object-contain object-right"
+                                                style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Center — Chip + Account number */}

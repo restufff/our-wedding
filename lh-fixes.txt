@@ -1,0 +1,28 @@
+
+=== Defer offscreen images (savings: Est savings of 19,755 KiB) ===
+  /image/blue-rose-bottom-left.png | wastedBytes: 8178468
+  /image/blue-rose-bottom-right.png | wastedBytes: 6793254
+  /image/rose-bottom.png | wastedBytes: 2637159
+  /image/love_sketch.png | wastedBytes: 2409114
+  /image/angel.png | wastedBytes: 115867
+  /image/lokasi-weddings.jpg | wastedBytes: 86293
+  /image/bca-new.svg | wastedBytes: 5014
+  /image/bri-new.svg | wastedBytes: 3749
+
+=== Properly size images (savings: Est savings of 7,302 KiB) ===
+  /image/love_sketch.png | wastedBytes: 2407225
+  /image/rose-bottom.png | wastedBytes: 2294985
+  /image/rose-up.png | wastedBytes: 1746048
+  /image/angel_sit.png | wastedBytes: 218809
+  /image/restu.jpeg | wastedBytes: 206434
+  /image/tania.jpeg | wastedBytes: 203362
+  /image/stitch_sit.png | wastedBytes: 178394
+  /image/angel.png | wastedBytes: 92680
+  /image/stitch.png | wastedBytes: 86791
+  /image/lokasi-weddings.jpg | wastedBytes: 42977
+
+=== Efficiently encode images (savings: ) ===
+
+=== Elements use prohibited ARIA attributes ===
+  "<div class=\"relative flex items-center h-8 sm:h-9 md:h-11 select-none\" aria-label=\"Mastercard\">"
+  "<div class=\"relative flex items-center h-8 sm:h-9 md:h-11 select-none\" aria-label=\"Mastercard\">"

@@ -4,6 +4,7 @@ import "./globals.css";
 const whispering = localFont({
   src: "./fonts/WhisperingSignature.ttf",
   variable: "--font-whispering",
+  display: "swap",
 });
 
 export const viewport = {
@@ -38,11 +39,11 @@ export const metadata = {
     siteName: "Undangan Pernikahan Restu & Tanya",
     images: [
       {
-        url: "/image/metatag.png",
+        url: "/image/metatag.jpg",
         width: 1200,
         height: 630,
         alt: "Undangan Pernikahan Restu & Tanya — 28 Maret 2026",
-        type: "image/png",
+        type: "image/jpeg",
       },
     ],
     locale: "id_ID",
@@ -52,8 +53,8 @@ export const metadata = {
     card: "summary_large_image",
     title: "The Wedding of Restu & Tanya ✨",
     description:
-      "Kami mengundang Anda untuk hadir dan berbagi kebahagiaan di hari istimewa kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
-    images: ["/image/metatag.png"],
+      "Kami mengundang Anda untuk hadir and berbagi kebahagiaan di hari istimewa kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
+    images: ["/image/metatag.jpg"],
   },
 };
 

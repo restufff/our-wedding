@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, MessageCircle, CheckCircle, XCircle, HelpCircle } from "lucide-react";
 import { getComments, submitComment, type Comment } from "@/app/actions/comments";
+import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 
@@ -13,6 +14,8 @@ interface CommentSectionProps {
 
 // Helper to generate random positions/durations
 const random = (min: number, max: number) => Math.random() * (max - min) + min;
+
+const MotionImage = motion.create(Image);
 
 export default function CommentSection({ guestName }: CommentSectionProps) {
     const { t } = useLanguage();
@@ -144,10 +147,12 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                         ease: "easeOut"
                     }}
                 >
-                    <motion.img
+                    <MotionImage
                         src="/image/angel.png"
                         alt="Angel Decoration"
-                        className="w-24 md:w-32 drop-shadow-lg transform translate-y-2 origin-bottom"
+                        width={128}
+                        height={128}
+                        className="w-24 md:w-32 h-auto drop-shadow-lg transform translate-y-2 origin-bottom"
                         animate={{ rotate: [-3, 3, -3] }}
                         transition={{
                             duration: 3,
@@ -155,10 +160,12 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                             ease: "easeInOut"
                         }}
                     />
-                    <motion.img
+                    <MotionImage
                         src="/image/stitch.png"
                         alt="Stitch Decoration"
-                        className="w-24 md:w-32 drop-shadow-lg transform translate-y-2 origin-bottom"
+                        width={128}
+                        height={128}
+                        className="w-24 md:w-32 h-auto drop-shadow-lg transform translate-y-2 origin-bottom"
                         animate={{ rotate: [3, -3, 3] }}
                         transition={{
                             duration: 3.2,

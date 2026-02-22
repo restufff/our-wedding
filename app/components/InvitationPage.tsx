@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import GreetingOverlay from "@/app/components/GreetingOverlay";
 import VideoSection from "@/app/components/VideoSection";
 import PostVideoOptions from "@/app/components/PostVideoOptions";
@@ -46,6 +47,8 @@ const WEDDING_DATE_CONFIG = {
     numberFontSize: "text-base md:text-lg lg:text-xl",
     labelFontSize: "text-[8px] md:text-[9px]",
 };
+
+const MotionImage = motion.create(Image);
 
 export default function InvitationPage({ guestName }: InvitationPageProps) {
     const { t } = useLanguage();
@@ -112,10 +115,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                     viewport={{ once: false, amount: 0.1 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                 >
-                    <motion.img
-                        src="/image/rose-up.png"
+                    <MotionImage
+                        src="/image/rose-up.webp"
                         alt="Top Frame Decoration"
-                        className="w-full md:w-[60%] lg:w-[40%] object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
+                        width={1000}
+                        height={600}
+                        className="w-full md:w-[60%] lg:w-[40%] h-auto object-contain origin-top -mt-3 md:-mt-10 lg:-mt-14 scale-110"
                         animate={{ y: [-10, 0, -10] }}
                         transition={{
                             duration: 5,
@@ -136,10 +141,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         viewport={{ once: false, amount: 0.05 }}
                         transition={{ duration: 0.9, ease: "easeOut" }}
                     >
-                        <motion.img
-                            src="/image/rose-bottom.png"
+                        <MotionImage
+                            src="/image/rose-bottom.webp"
                             alt="Bottom Frame Decoration"
-                            className="w-full object-cover object-top origin-bottom"
+                            width={500}
+                            height={300}
+                            className="w-full h-auto object-cover object-top origin-bottom"
                             animate={{ y: [0, 10, 0] }}
                             transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                         />
@@ -153,10 +160,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         viewport={{ once: false, amount: 0.1 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                     >
-                        <motion.img
-                            src="/image/rose-up-bottom-dekstop.png"
+                        <MotionImage
+                            src="/image/rose-up-bottom-dekstop.webp"
                             alt="Bottom Frame Decoration"
-                            className="w-full md:w-[60%] lg:w-[40%] object-contain origin-bottom -mb-3 md:-mb-10 lg:-mb-14 scale-110"
+                            width={1000}
+                            height={600}
+                            className="w-full md:w-[60%] lg:w-[40%] h-auto object-contain origin-bottom -mb-3 md:-mb-10 lg:-mb-14 scale-110"
                             animate={{ y: [10, 0, 10] }}
                             transition={{
                                 duration: 5,
@@ -207,11 +216,13 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
                                         <div className="w-full h-full bg-[#366998]/5 rounded-t-full rounded-b-[90px] border border-[#366998]/10 flex items-center justify-center overflow-hidden relative">
-                                            {/* Photo Placeholder / Image */}
-                                            <img
+                                            <Image
                                                 src="/image/restu.jpeg"
                                                 alt="Restu Fauzi"
+                                                width={400}
+                                                height={500}
                                                 className="w-full h-full object-cover"
+                                                sizes="(max-width: 768px) 224px, 256px"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#366998]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
@@ -245,11 +256,13 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
 
                                     <div className="relative w-full h-full bg-white/30 backdrop-blur-sm border border-white/40 rounded-t-full rounded-b-[100px] p-3 shadow-lg overflow-hidden">
                                         <div className="w-full h-full bg-[#366998]/5 rounded-t-full rounded-b-[90px] border border-[#366998]/10 flex items-center justify-center overflow-hidden relative">
-                                            {/* Photo Placeholder / Image */}
-                                            <img
+                                            <Image
                                                 src="/image/tania.jpeg"
                                                 alt="Tanya Apriska"
+                                                width={400}
+                                                height={500}
                                                 className="w-full h-full object-cover"
+                                                sizes="(max-width: 768px) 224px, 256px"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#366998]/10 mix-blend-multiply pointer-events-none"></div>
                                         </div>
@@ -379,19 +392,14 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                         </div>
 
                         {/* Location Image */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: false, amount: 0.3 }}
-                            transition={{ duration: 0.8 }}
-                            className="w-full max-w-3xl md:max-w-lg mx-auto px-4 mt-8 md:mt-12 mb-6 flex justify-center"
-                        >
-                            <img
-                                src="/image/lokasi-weddings.jpg"
-                                alt="Peta Lokasi"
-                                className="w-full h-auto rounded-2xl shadow-xl border-4 border-white/50"
-                            />
-                        </motion.div>
+                        <Image
+                            src="/image/lokasi-weddings.webp"
+                            alt="Peta Lokasi"
+                            width={800}
+                            height={600}
+                            className="w-full md:max-w-md mx-auto h-auto rounded-2xl shadow-xl border-4 border-white/50"
+                            sizes="(max-width: 768px) 100vw, 320px"
+                        />
 
                         {/* Map Button */}
                         <motion.div
@@ -468,10 +476,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                         ease: "easeOut"
                                     }}
                                 >
-                                    <motion.img
+                                    <MotionImage
                                         src="/image/angel_sit.png"
                                         alt="Angel Sitting"
-                                        className="w-14 md:w-16 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
+                                        width={80}
+                                        height={80}
+                                        className="w-14 md:w-16 h-auto drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
                                         animate={{ rotate: [-2, 2, -2] }}
                                         transition={{
                                             duration: 4,
@@ -479,10 +489,12 @@ export default function InvitationPage({ guestName }: InvitationPageProps) {
                                             ease: "easeInOut"
                                         }}
                                     />
-                                    <motion.img
+                                    <MotionImage
                                         src="/image/stitch_sit.png"
                                         alt="Stitch Sitting"
-                                        className="w-16 md:w-20 drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
+                                        width={100}
+                                        height={100}
+                                        className="w-16 md:w-20 h-auto drop-shadow-md origin-bottom mix-blend-multiply opacity-90"
                                         animate={{ rotate: [2, -2, 2] }}
                                         transition={{
                                             duration: 4.5,

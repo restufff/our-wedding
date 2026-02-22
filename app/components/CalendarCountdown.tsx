@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function CalendarCountdown() {
@@ -60,10 +61,12 @@ export default function CalendarCountdown() {
                 <div key={i} className="flex items-center justify-center p-2 relative group cursor-default">
                     {isWeddingDay && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <img
-                                src="/image/love_sketch.png"
+                            <Image
+                                src="/image/love_sketch.webp"
                                 alt="Highlight"
-                                className="w-12 h-12 max-w-none opacity-80"
+                                width={48}
+                                height={48}
+                                className="max-w-none opacity-80 h-auto"
                             />
                         </div>
                     )}

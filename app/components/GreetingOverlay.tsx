@@ -1,8 +1,11 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/app/context/LanguageContext";
+
+const MotionImage = motion.create(Image);
 
 interface GreetingOverlayProps {
     onOpen: () => void;
@@ -93,24 +96,32 @@ export default function GreetingOverlay({ onOpen, guestName, weddingDate }: Gree
                 }
             }}
         >
-            {/* Background Image - Parallax Effect possible here if we wanted, but static is fine for now */}
-            {/* Mobile Background Image (Stretched) */}
-            <motion.div
-                className="absolute inset-0 z-0 bg-center bg-[length:100%_100%] md:hidden"
-                style={{ backgroundImage: "url('/image/bg-blue.jpg')" }}
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 2, ease: "easeOut" }}
-            />
+            {/* Background Images - Using CSS visibility for instant preloader discovery */}
+            <>
+                {/* Mobile Background Image (Stretched) */}
+                <MotionImage
+                    src="/image/bg-blue.webp"
+                    alt="Background Mobile"
+                    fill
+                    priority
+                    className="absolute inset-0 z-0 object-cover md:hidden"
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                />
 
-            {/* Desktop Background Image */}
-            <motion.div
-                className="absolute inset-0 z-0 bg-center bg-[length:100%_100%] hidden md:block"
-                style={{ backgroundImage: "url('/image/bg-dekstop.jpg')" }}
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 2, ease: "easeOut" }}
-            />
+                {/* Desktop Background Image */}
+                <MotionImage
+                    src="/image/bg-dekstop.webp"
+                    alt="Background Desktop"
+                    fill
+                    priority
+                    className="absolute inset-0 z-0 object-cover hidden md:block"
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                />
+            </>
 
 
 

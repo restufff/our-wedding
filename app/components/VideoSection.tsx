@@ -91,6 +91,7 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
                     className="w-full h-full md:w-auto md:h-[90vh] md:aspect-[9/16] object-cover md:object-contain shadow-2xl md:rounded-2xl"
                     src="/video/wedding_compressed.mp4"
                     playsInline
+                    preload="none"
                     onEnded={handleVideoEnded}
                 // poster="/image/poster.jpg"
                 />
