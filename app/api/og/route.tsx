@@ -45,12 +45,6 @@ export async function GET(request: NextRequest) {
                             color: 'white',
                         }}
                     >
-                        <span style={{ fontSize: 32, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8, marginBottom: 10, fontFamily: 'sans-serif' }}>
-                            Spesial Untuk
-                        </span>
-                        <span style={{ fontSize: 72, fontWeight: 'bold' }}>
-                            {guestName}
-                        </span>
                     </div>
                 </div>
             ),
