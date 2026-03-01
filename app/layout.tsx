@@ -39,7 +39,7 @@ export const metadata = {
     siteName: "Undangan Pernikahan Restu & Tanya",
     images: [
       {
-        url: "/api/og",
+        url: "https://tr-invitation.my.id/api/og",
         width: 1200,
         height: 630,
         alt: "Undangan Pernikahan Restu & Tanya — 28 Maret 2026",
@@ -54,7 +54,7 @@ export const metadata = {
     title: "The Wedding of Restu & Tanya ✨",
     description:
       "Kami mengundang Anda untuk hadir and berbagi kebahagiaan di hari istimewa kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.",
-    images: ["/api/og"],
+    images: ["https://tr-invitation.my.id/api/og"],
   },
 };
 

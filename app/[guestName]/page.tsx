@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             siteName: "Undangan Pernikahan Restu & Tanya",
             images: [
                 {
-                    url: `/api/og?guest=${encodeURIComponent(decodedName)}`,
+                    url: `https://tr-invitation.my.id/api/og?guest=${encodeURIComponent(decodedName)}`,
                     width: 1200,
                     height: 630,
                     alt: "Undangan Pernikahan Restu & Tanya — 28 Maret 2026",
-                    type: "image/png",
+                    type: "image/jpeg",
                 },
             ],
             locale: "id_ID",
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             card: "summary_large_image",
             title: `Undangan Pernikahan Restu & Tanya ✨`,
             description: `${decodedName}, kami mengundang Anda untuk hadir dan menjadi bagian dari hari spesial kami. Sabtu, 28 Maret 2026 · Bengkulu, Seluma.`,
-            images: [`/api/og?guest=${encodeURIComponent(decodedName)}`],
+            images: [`https://tr-invitation.my.id/api/og?guest=${encodeURIComponent(decodedName)}`],
         },
     };
 }
