@@ -72,7 +72,7 @@ export const dictionaries = {
         "video.replay": "Putar Ulang Video",
         "video.continue": "Lanjut ke Undangan",
         "video.unmute": "Hidupkan Musik",
-        "video.scrollDown": "Gulir ke bawah untuk lanjut"
+        "video.scrollDown": "Scroll ke bawah untuk liat isi undangan"
     },
     en: {
         // Greeting Overlay
@@ -147,7 +147,7 @@ export const dictionaries = {
         "video.replay": "Replay Video",
         "video.continue": "Continue to Invitation",
         "video.unmute": "Turn on Music",
-        "video.scrollDown": "Scroll down to continue"
+        "video.scrollDown": "Scroll down to see full invitation"
     }
 };
 

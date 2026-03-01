@@ -36,8 +36,7 @@ export async function getComments(): Promise<Comment[]> {
     }
 }
 
-export async function submitComment(prevState: any, formData: FormData) {
-    // Basic sanitization: Remove HTML tags to prevent XSS
+export async function submitComment(formData: FormData) {
     const sanitize = (text: string) => text.replace(/<[^>]*>?/gm, '').trim();
 
     const name = sanitize(formData.get("name") as string || "");
@@ -66,7 +65,6 @@ export async function submitComment(prevState: any, formData: FormData) {
                     name,
                     message,
                     status,
-                    // created_at is automatically handled by default default now()
                 }
             ]);
 

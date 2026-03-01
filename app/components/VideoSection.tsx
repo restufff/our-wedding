@@ -1,14 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/app/context/LanguageContext";
-
-// --- CUSTOMIZE BUTTON COLORS HERE ---
-const BUTTON_STYLE_ON = "bg-[#ffbfdd]/80 hover:bg-[#ffbfdd] border-[#EBE2DC]/30";
-const BUTTON_STYLE_OFF = "bg-black/30 hover:bg-black/50 border-white/10";
-// ------------------------------------
 
 interface VideoSectionProps {
     play: boolean;
@@ -19,19 +14,15 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
     const { t } = useLanguage();
     const videoRef = useRef<HTMLVideoElement>(null);
     const [showFeedback, setShowFeedback] = useState<"play" | "pause" | null>(null);
-    const [isMuted, setIsMuted] = useState(true); // Default to true for autoplay
 
     // Play/Pause logic based on 'play' prop
     useEffect(() => {
         if (videoRef.current) {
             if (play) {
-                videoRef.current.muted = true; // Auto-mute for autoplay policy
+                videoRef.current.muted = false; // Auto-play unmuted since user interacted with GreetingOverlay
                 const playPromise = videoRef.current.play();
                 if (playPromise !== undefined) {
                     playPromise
-                        .then(() => {
-                            setIsMuted(true);
-                        })
                         .catch((error) => {
                             console.error("Autoplay prevented:", error);
                         });
@@ -61,16 +52,6 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
         }
     };
 
-    // Toggle Mute
-    const toggleMute = (e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevent toggling play/pause of video
-        if (videoRef.current) {
-            const newMutedState = !videoRef.current.muted;
-            videoRef.current.muted = newMutedState;
-            setIsMuted(newMutedState);
-        }
-    };
-
     // Feedback animation timeout
     useEffect(() => {
         if (showFeedback) {
@@ -97,60 +78,42 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
                 />
             </div>
 
-            {/* Audio Toggle Button (Heart Shape) */}
+            {/* Aesthetic Scroll Down Hint Overlay */}
             <AnimatePresence>
                 {play && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0 }}
-                        className="absolute bottom-8 right-8 z-30 flex items-center gap-3 flex-row-reverse"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ delay: 1.5, duration: 1 }}
+                        className="absolute bottom-10 md:bottom-12 left-0 right-0 z-30 flex flex-col items-center justify-center pointer-events-none gap-4"
                     >
-                        <button
-                            onClick={toggleMute}
-                            className={`relative group flex items-center justify-center w-14 h-14 rounded-full backdrop-blur-md border shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-500 ${isMuted ? BUTTON_STYLE_OFF : BUTTON_STYLE_ON}`}
-                        >
-                            {/* Pulsing Effect when Muted */}
-                            {isMuted && (
-                                <span className="absolute inset-0 rounded-full bg-white/30 animate-ping opacity-75 duration-1000"></span>
-                            )}
-
-                            {/* Heart Icon (Favicon) */}
-                            <img
-                                src="/favicon.ico"
-                                alt="Audio Toggle"
-                                className={`w-8 h-8 object-contain transition-all duration-300 ${isMuted ? 'opacity-50 grayscale' : 'scale-110 drop-shadow-md'}`}
+                        {/* Mouse/Scroll Indicator Pill */}
+                        <div className="w-6 h-10 md:w-8 md:h-12 border-[2px] border-white/60 rounded-full flex justify-center p-1.5 backdrop-blur-sm bg-black/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                            <motion.div
+                                animate={{
+                                    y: [0, 16, 0],
+                                    opacity: [1, 0, 1]
+                                }}
+                                transition={{
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                className="w-[3px] h-3 bg-white rounded-full opacity-90"
                             />
+                        </div>
 
-                            {/* Slash for muted state */}
-                            {isMuted && (
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                                >
-                                    <div className="w-8 h-[1.5px] bg-white rotate-45 rounded-full shadow-sm"></div>
-                                </motion.div>
-                            )}
-                        </button>
-
-                        {/* Text Hint */}
-                        <AnimatePresence>
-                            {isMuted && (
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 10 }}
-                                    className="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10"
-                                >
-                                    <p className="text-white text-[10px] uppercase tracking-widest font-medium whitespace-nowrap">
-                                        {t('video.unmute')}
-                                    </p>
-                                    {/* Arrow pointing to button */}
-                                    <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[6px] border-l-black/40 border-b-[6px] border-b-transparent"></div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        {/* Elegant Text */}
+                        <motion.div
+                            animate={{ opacity: [0.6, 1, 0.6] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            className="bg-black/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5"
+                        >
+                            <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium drop-shadow-md">
+                                {t('video.scrollDown')}
+                            </p>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

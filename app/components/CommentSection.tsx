@@ -105,7 +105,7 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
         };
         setComments((prev) => [optimisticComment, ...prev]);
 
-        const result = await submitComment(null, formData);
+        const result = await submitComment(formData);
 
         if (result.success) {
             setFeedback({ type: 'success', text: t('comments.successMsg') });
@@ -171,12 +171,11 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
                             duration: 3.2,
                             repeat: Infinity,
                             ease: "easeInOut",
-                            delay: 0.2 // Slight delay for natural feel
+                            delay: 0.2
                         }}
                     />
                 </motion.div>
 
-                {/* The Comment Box (In front) */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
