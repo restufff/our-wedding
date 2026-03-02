@@ -89,11 +89,11 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
                         className="absolute bottom-10 md:bottom-12 left-0 right-0 z-30 flex flex-col items-center justify-center pointer-events-none gap-4"
                     >
                         {/* Mouse/Scroll Indicator Pill */}
-                        <div className="w-6 h-10 md:w-8 md:h-12 border-[2px] border-white/60 rounded-full flex justify-center p-1.5 backdrop-blur-sm bg-black/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <div className="w-6 h-10 md:w-8 md:h-12 border-[2px] border-white/60 rounded-full flex justify-center p-1.5 backdrop-blur-md bg-black/80 shadow-[0_0_15px_rgba(0,0,0,0.8)]">
                             <motion.div
                                 animate={{
                                     y: [0, 16, 0],
-                                    opacity: [1, 0, 1]
+                                    opacity: [1, 0.5, 1]
                                 }}
                                 transition={{
                                     duration: 1.5,
@@ -106,9 +106,9 @@ export default function VideoSection({ play, onEnded }: VideoSectionProps) {
 
                         {/* Elegant Text */}
                         <motion.div
-                            animate={{ opacity: [0.6, 1, 0.6] }}
+                            animate={{ opacity: [0.8, 1, 0.8] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            className="bg-black/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/5"
+                            className="bg-black/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20"
                         >
                             <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium drop-shadow-md">
                                 {t('video.scrollDown')}
