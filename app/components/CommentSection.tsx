@@ -48,25 +48,29 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
         };
         fetchComments();
 
-        // Subscribe to Realtime INSERT events on the comments table
+        // Subscribe to Realtime events on the comments table
         const channel = supabaseBrowser
             .channel('comments-realtime')
             .on(
                 'postgres_changes',
-                { event: 'INSERT', schema: 'public', table: 'comments' },
+                { event: '*', schema: 'public', table: 'comments' },
                 (payload) => {
-                    const newComment: Comment = {
-                        id: payload.new.id,
-                        name: payload.new.name,
-                        message: payload.new.message,
-                        status: payload.new.status,
-                        createdAt: payload.new.created_at,
-                    };
-                    setComments((prev) => {
-                        // Avoid duplicates (from optimistic update)
-                        if (prev.some((c) => c.id === newComment.id)) return prev;
-                        return [newComment, ...prev];
-                    });
+                    if (payload.eventType === 'INSERT') {
+                        const newComment: Comment = {
+                            id: payload.new.id,
+                            name: payload.new.name,
+                            message: payload.new.message,
+                            status: payload.new.status,
+                            createdAt: payload.new.created_at,
+                        };
+                        setComments((prev) => {
+                            // Avoid duplicates (from optimistic update)
+                            if (prev.some((c) => c.id === newComment.id)) return prev;
+                            return [newComment, ...prev];
+                        });
+                    } else if (payload.eventType === 'DELETE') {
+                        setComments((prev) => prev.filter((c) => c.id !== payload.old.id));
+                    }
                 }
             )
             .subscribe();
@@ -110,8 +114,10 @@ export default function CommentSection({ guestName }: CommentSectionProps) {
         if (result.success) {
             setFeedback({ type: 'success', text: t('comments.successMsg') });
             setMessage("");
-            // Remove optimistic temp entry — Realtime will push the real comment
-            setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
+
+            // Re-fetch comments to guarantee UI update even if Realtime is disabled
+            const updatedComments = await getComments();
+            setComments(updatedComments);
         } else {
             // Remove the optimistic comment on failure
             setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));

@@ -1,6 +1,7 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseAdmin } from "@/lib/supabase";
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 
 export interface Comment {
     id: string;
@@ -11,6 +12,7 @@ export interface Comment {
 }
 
 export async function getComments(): Promise<Comment[]> {
+    noStore();
     try {
         const { data, error } = await supabase
             .from('comments')
@@ -58,7 +60,7 @@ export async function submitComment(formData: FormData) {
 
 
     try {
-        const { error } = await supabase
+        const { error } = await supabaseAdmin
             .from('comments')
             .insert([
                 {
@@ -69,9 +71,11 @@ export async function submitComment(formData: FormData) {
             ]);
 
         if (error) {
-            console.error("Supabase error:", error);
+            console.error("Supabase error for insert:", error);
             return { message: "Failed to save comment" };
         }
+
+        revalidatePath("/");
 
         return { message: "Comment submitted successfully!", success: true };
     } catch (error) {

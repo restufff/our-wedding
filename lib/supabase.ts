@@ -9,4 +9,4 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Private client (uses Service Role Key) - ONLY use in server environments for administrative tasks
 // Note: In Next.js Server Actions, using the Anon Key is usually sufficient if RLS is configured correctly.
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey || supabaseAnonKey);
